@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Date 💖</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+*{box-sizing:border-box}
+body{margin:0;font-family:'Nunito',sans-serif;background:#1687e8;min-height:100vh;overflow-x:hidden}
+#app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px 14px;position:relative}
+.card{width:min(440px,100%);background:#fff;border-radius:32px;padding:28px 22px;box-shadow:0 18px 55px #07559a66;position:relative;z-index:2;text-align:center}
+.fade{animation:fade .38s ease}@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+h1{font-size:29px;line-height:1.15;margin:8px 0 12px;font-weight:900;color:#25243a}
+p{color:#66657a;font-size:16px;line-height:1.5}
+.hero{width:180px;height:180px;object-fit:cover;border-radius:50%;margin:0 auto 16px;border:6px solid #fff;box-shadow:0 8px 24px #0002}
+.btn{border:0;border-radius:18px;padding:14px 20px;font:800 16px Nunito;cursor:pointer;transition:.2s;min-height:52px}
+.yes{background:#ff6b8a;color:#fff}.yes:hover{transform:scale(1.04)}
+.no{background:#e8e8ed;color:#555;position:fixed;z-index:20}.main-no{position:relative;margin-left:8px}
+.btnrow{display:flex;justify-content:center;gap:10px;margin-top:20px}
+input,select{width:100%;padding:15px;border:2px solid #eee0e6;border-radius:16px;font:700 16px Nunito;outline:none;margin:8px 0;background:#fff}
+input:focus,select:focus{border-color:#ff6b8a}
+.foodgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:18px 0}
+.food{padding:16px 8px;border:2px solid #eee;border-radius:19px;background:#fff;font-weight:800;cursor:pointer;font-size:16px}
+.food.selected{border-color:#ff6b8a;background:#fff0f3;transform:scale(1.02)}
+.invoice{background:#fafafa;border:2px dashed #ddd;border-radius:20px;padding:18px;text-align:left;margin:18px 0}
+.price{font-size:30px;font-weight:900;color:#ff5579;text-align:center;margin:10px}
+.float{position:fixed;z-index:1;font-size:24px;animation:float 7s linear infinite;opacity:.7;pointer-events:none}
+@keyframes float{0%{transform:translateY(110vh) rotate(0)}100%{transform:translateY(-15vh) rotate(360deg)}}
+.footer{font-size:12px;color:#999;margin-top:22px}.small{font-size:13px;color:#999}
+#submitBtn{display:none;margin-top:12px}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="float" style="left:7%;animation-delay:0s">💗</div>
+<div class="float" style="left:25%;animation-delay:2s">💖</div>
+<div class="float" style="left:70%;animation-delay:1s">💕</div>
+<div class="float" style="left:88%;animation-delay:4s">💗</div>
+<main class="card" id="card"></main>
+</div>
+
+<script>
+const WA="+255655595731";
+let page=1, chosenFood="", chosenDate="", chosenTime="";
+
+function render(){
+ const c=document.getElementById("card"); c.className="card fade";
+ if(page===1)c.innerHTML=`
+ <img class="hero" src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=500&q=85" alt="Cute black pug">
+ <h1>Will you go on a date with me? 🌸</h1><p>Be honest... 😌</p>
+ <div class="btnrow"><button class="btn yes" onclick="next()">YES 💖</button><button class="btn no main-no" id="noBtn">No 😭</button></div>
+ <div class="footer">built on Replit ❤️</div>`;
+ if(page===2)c.innerHTML=`<h1>WAIT YOU ACTUALLY SAID YES?? 🥺</h1><p>I was so ready for you to say no 😭</p><button class="btn yes" onclick="next()">okay okay? →</button><div class="footer">built on Replit ❤️</div>`;
+ if(page===3)c.innerHTML=`<h1>So... when are you free? 🗓️</h1><p>Pick a date and time 💕</p>
+ <input id="date" type="date"><select id="time"><option value="">Choose a time</option>${["12:00 PM","1:00 PM","2:00 PM","3:00 PM","4:00 PM","5:00 PM","6:00 PM","7:00 PM","8:00 PM"].map(x=>`<option>${x}</option>`).join("")}</select>
+ <button class="btn yes" onclick="saveDate()">set the date 💖</button><div class="footer">built on Replit ❤️</div>`;
+ if(page===4)c.innerHTML=`<h1>What are we feeling? ✨</h1><p>pick your vibe</p>
+ <div class="foodgrid">${[["🍕","Pizza"],["🍚","Rice"],["🍔","Burgers"],["🍝","Pasta"],["🌭","Sosage"],["🍜","Ramen"]].map(([i,n])=>`<button class="food" onclick="pickFood(this,'${n}')">${i} ${n}</button>`).join("")}</div>
+ <p class="small">Choose one and we'll continue automatically 💗</p><div class="footer">built on Replit ❤️</div>`;
+ if(page===5)c.innerHTML=`<h1>glad you didn't say no. 💕</h1><p>be ready by 6, I'm coming to get you 😘</p>
+ <p><b>P.S.</b> normal people text. I made a website on Replit during lunch for you. no big deal.</p>
+ <button class="btn yes" onclick="next()">ok I accept 💖</button><div class="footer">built on Replit ❤️</div>`;
+ if(page===6)c.innerHTML=`<h1>one small fee 💸</h1><p>to confirm your acceptance of this date, please complete the following transaction. totally normal.</p>
+ <div class="invoice"><b>Date Agreement™</b><hr><p>One-time fee</p><div class="price">30,000/=</div><p class="small">Non-refundable • Extremely serious*<br>*not actually serious 😇</p></div>
+ <button class="btn yes" id="payBtn" onclick="fakePay()">pay 30,000/ confirm 😘</button>
+ <button class="btn yes" id="submitBtn" onclick="submitWhatsApp()">SUBMIT 💌</button>
+ <div class="small" id="sentHint" style="display:none;margin-top:10px">Your date details are ready to send 💕</div>
+ <div class="footer">built on Replit ❤️</div>`;
+}
+function next(){page++; if(page===2)confetti({particleCount:120,spread:90,origin:{y:.65}}); render()}
+function saveDate(){
+ const d=document.getElementById("date").value,t=document.getElementById("time").value;
+ if(!d||!t){alert("Please choose both a date and time 💖");return}
+ chosenDate=d;chosenTime=t;page=4;render()
+}
+function pickFood(el,n){
+ document.querySelectorAll(".food").forEach(x=>x.classList.remove("selected"));
+ el.classList.add("selected"); chosenFood=n;
+ setTimeout(()=>{page=5;render()},450)
+}
+function fakePay(){
+ confetti({particleCount:220,spread:120,startVelocity:40,origin:{y:.55}});
+ alert("Just kidding! You don't have to pay! It's a date! See you at 6 ❤️");
+ document.getElementById("payBtn").style.display="none";
+ document.getElementById("submitBtn").style.display="inline-block";
+ document.getElementById("sentHint").style.display="block";
+}
+function submitWhatsApp(){
+ const msg=`💕 DATE CONFIRMED! 💕\n\nThey said YES! 🥺❤️\n📅 Date: ${chosenDate}\n⏰ Time: ${chosenTime}\n🍽️ Vibe: ${chosenFood}\n\nSee you at 6! 😘`;
+ window.location.href=`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+}
+document.addEventListener("mouseover",e=>{if(e.target.id==="noBtn")runAway(e.target)});
+document.addEventListener("touchstart",e=>{if(e.target.id==="noBtn"){e.preventDefault();runAway(e.target)}},{passive:false});
+function runAway(b){
+ const pad=15,w=b.offsetWidth,h=b.offsetHeight;
+ b.style.position="fixed";
+ b.style.left=(Math.random()*(innerWidth-w-pad*2)+pad)+"px";
+ b.style.top=(Math.random()*(innerHeight-h-pad*2)+pad)+"px";
+}
+render();
+</script>
+</body>
+</html>
