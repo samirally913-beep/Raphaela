@@ -1,181 +1,57 @@
 <!doctype html>
-<html lang="en">
+<html lang="sw">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>A Little Date? 🌸</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: { blush: "#FFF5F8", pink: "#FF6B8A" },
-          fontFamily: {
-            cute: ['"Nunito"', 'ui-rounded', 'system-ui', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; }
-    body { margin:0; background:#FFF5F8; font-family:Nunito,ui-rounded,system-ui,sans-serif; overflow-x:hidden; }
-    .card { background:#fff; border-radius:32px; box-shadow:0 18px 55px rgba(255,107,138,.14); }
-    .heart { position:fixed; pointer-events:none; animation:float 7s linear infinite; opacity:.55; z-index:0; }
-    @keyframes float { 0%{transform:translateY(110vh) rotate(0);opacity:0} 12%{opacity:.6} 100%{transform:translateY(-15vh) rotate(360deg);opacity:0} }
-    .confetti { position:fixed; width:9px; height:13px; z-index:100; pointer-events:none; animation:pop 1.4s ease-out forwards; }
-    @keyframes pop { 0%{transform:translate(0,0) rotate(0);opacity:1} 100%{transform:translate(var(--x),var(--y)) rotate(720deg);opacity:0} }
-    .no-run { position:fixed !important; z-index:50; transition:left .18s ease,top .18s ease; }
-    input,select { outline:none; }
-    input:focus,select:focus { box-shadow:0 0 0 3px rgba(255,107,138,.18); border-color:#FF6B8A !important; }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1769e0">
+  <title>CampusBite Tanzania</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 </head>
 <body>
-<div id="root"></div>
+<div id="app">
+  <section id="authView" class="screen auth-screen">
+    <div class="brand">
+      <div id="authCollegeLogo" class="logo college-logo">🍽️</div>
+      <div><h1>CampusBite</h1><p>Campus food made simple</p></div>
+    </div>
+    <div class="auth-card">
+      <div class="tabs">
+        <button class="tab active" onclick="showAuth('login')">Ingia</button>
+        <button class="tab" onclick="showAuth('register')">Jisajili</button>
+      </div>
+      <div id="loginForm">
+        <label>College/University ID</label><input id="loginCollege" placeholder="COL-000123">
+        <label>Student Registration Number</label><input id="loginStudent" placeholder="2026-00123">
+        <label>Password</label><input id="loginPass" type="password" placeholder="••••••••">
+        <button class="primary" onclick="loginStudent()">Ingia</button>
+        <button class="demo-link" onclick="demoLogin()">Tumia demo student</button>
+        <hr>
+        <button class="secondary" onclick="adminLogin()">Admin demo</button>
+        <button class="secondary" onclick="vendorLogin()">Vendor demo</button>
+      </div>
+      <div id="registerForm" class="hidden">
+        <label>College/University ID</label><input id="regCollege" placeholder="COL-000123">
+        <label>Student Registration Number</label><input id="regStudent" placeholder="2026-00123">
+        <label>Full Name</label><input id="regName" placeholder="Jina kamili">
+        <label>WhatsApp Number</label><input id="regPhone" placeholder="+255...">
+        <label>Create Password</label><input id="regPass" type="password" placeholder="••••••••">
+        <button class="primary" onclick="registerStudent()">Tengeneza akaunti</button>
+        <p class="hint">Namba ya mwanafunzi lazima iwe imeongezwa na Admin kwanza.</p>
+      </div>
+    </div>
+  </section>
 
-<script type="module">
-import React, {useEffect, useState} from "https://esm.sh/react@18.3.1";
-import {createRoot} from "https://esm.sh/react-dom@18.3.1/client";
-import {motion, AnimatePresence} from "https://esm.sh/framer-motion@11.18.0?deps=react@18.3.1,react-dom@18.3.1";
-
-const {createElement: h} = React;
-
-function FloatingHearts(){
-  const hearts = ["♡","♥","❤","💗","💖"];
-  return h(React.Fragment,null,
-    [...Array(16)].map((_,i)=>h("div",{key:i,className:"heart text-pink text-2xl",
-      style:{left:(Math.random()*100)+"%",animationDelay:(Math.random()*6)+"s",fontSize:(16+Math.random()*18)+"px"}},hearts[i%hearts.length]))
-  );
-}
-
-function confetti(){
-  const symbols=["💖","🌸","✨","🎉","💕","⭐"];
-  for(let i=0;i<70;i++){
-    const el=document.createElement("div");
-    el.className="confetti";
-    el.textContent=symbols[i%symbols.length];
-    el.style.left="50%"; el.style.top="45%";
-    el.style.setProperty("--x",((Math.random()-.5)*window.innerWidth*1.2)+"px");
-    el.style.setProperty("--y",((Math.random()-.5)*window.innerHeight*1.2)+"px");
-    el.style.animationDelay=(Math.random()*.25)+"s";
-    document.body.appendChild(el);
-    setTimeout(()=>el.remove(),1800);
-  }
-}
-
-function App(){
-  const [page,setPage]=useState(1);
-  const [date,setDate]=useState("");
-  const [time,setTime]=useState("6:00 PM");
-  const [food,setFood]=useState("");
-  const [noPos,setNoPos]=useState(null);
-
-  useEffect(()=>{ window.scrollTo({top:0,behavior:"smooth"}); },[page]);
-
-  const runNo=()=>{
-    const pad=15, bw=95, bh=50;
-    const x=Math.max(pad,Math.random()*(window.innerWidth-bw-pad));
-    const y=Math.max(90,Math.random()*(window.innerHeight-bh-pad));
-    setNoPos({left:x,top:y});
-  };
-
-  const yes=()=>{confetti();setTimeout(()=>setPage(2),650);};
-
-  const foods=[
-    ["🍕","Pizza"],["🍣","Sushi"],["🍔","Burgers"],
-    ["🍝","Pasta"],["🌮","Tacos"],["🍜","Ramen"]
-  ];
-
-  return h("div",{className:"min-h-screen relative flex flex-col"},
-    h(FloatingHearts),
-    h("main",{className:"relative z-10 flex-1 flex items-center justify-center px-4 py-8"},
-      h(AnimatePresence,{mode:"wait"},
-        h(motion.div,{key:page,
-          initial:{opacity:0,y:18,scale:.98},animate:{opacity:1,y:0,scale:1},
-          exit:{opacity:0,y:-12},transition:{duration:.35},
-          className:"w-full max-w-xl"},
-          page===1 && h("section",{className:"card p-6 sm:p-9 text-center"},
-            h("div",{className:"mx-auto w-56 h-56 sm:w-64 sm:h-64 rounded-[28px] overflow-hidden mb-6 bg-pink/10"},
-              h("img",{src:"https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=700&q=85",
-                alt:"Cute black pug wearing glasses",className:"w-full h-full object-cover"})),
-            h("p",{className:"text-xs font-extrabold tracking-[.2em] uppercase text-pink mb-3"},"A tiny question…"),
-            h("h1",{className:"text-3xl sm:text-4xl font-black text-gray-900 leading-tight"},"Will you go on a date with me? 🌸"),
-            h("div",{className:"mt-7 flex flex-col sm:flex-row justify-center gap-3"},
-              h("button",{onClick:yes,className:"rounded-full bg-pink text-white font-extrabold px-9 py-4 text-lg shadow-lg shadow-pink/20 hover:scale-105 transition"},"YES 💖"),
-              h("button",{onMouseEnter:runNo,onTouchStart:runNo,onClick:runNo,
-                className:"rounded-full bg-gray-200 text-gray-700 font-extrabold px-9 py-4 text-lg",
-                style:noPos?{left:noPos.left,top:noPos.top}:{}}, "No 😶")
-            )
-          ),
-
-          page===2 && h("section",{className:"card p-7 sm:p-10 text-center"},
-            h("div",{className:"text-7xl mb-5"},"🥺💗"),
-            h("h1",{className:"text-3xl sm:text-4xl font-black leading-tight text-gray-900"},"WAIT YOU ACTUALLY SAID YES?? 🥺 I was so ready for you to say no 😭"),
-            h("button",{onClick:()=>setPage(3),className:"mt-8 rounded-full bg-pink text-white font-extrabold px-8 py-4 hover:scale-105 transition"},"okay okay? →")
-          ),
-
-          page===3 && h("section",{className:"card p-7 sm:p-10"},
-            h("h1",{className:"text-3xl sm:text-4xl font-black text-gray-900 text-center"},"So... when are you free? 🗓️"),
-            h("div",{className:"mt-8 grid gap-5"},
-              h("label",{className:"font-extrabold text-gray-700"},"Pick a date",
-                h("input",{type:"date",value:date,onChange:e=>setDate(e.target.value),
-                  className:"mt-2 w-full rounded-2xl border-2 border-gray-100 px-5 py-4 font-bold text-gray-700 bg-white"})),
-              h("label",{className:"font-extrabold text-gray-700"},"Pick a time",
-                h("select",{value:time,onChange:e=>setTime(e.target.value),
-                  className:"mt-2 w-full rounded-2xl border-2 border-gray-100 px-5 py-4 font-bold text-gray-700 bg-white"},
-                  ["12:00 PM","1:00 PM","2:00 PM","3:00 PM","4:00 PM","5:00 PM","6:00 PM","7:00 PM","8:00 PM"].map(t=>h("option",{key:t},t)))),
-              h("button",{disabled:!date,onClick:()=>setPage(4),
-                className:"mt-2 rounded-full bg-pink text-white font-extrabold px-7 py-4 disabled:opacity-40 transition"},"set the date 💖")
-            )
-          ),
-
-          page===4 && h("section",{className:"card p-7 sm:p-10 text-center"},
-            h("h1",{className:"text-3xl sm:text-4xl font-black text-gray-900"},"What are we feeling? ✨"),
-            h("p",{className:"text-gray-500 font-bold mt-2"},"pick your vibe"),
-            h("div",{className:"grid grid-cols-2 sm:grid-cols-3 gap-3 mt-7"},
-              foods.map(([icon,name])=>h("button",{key:name,onClick:()=>{setFood(name);setTimeout(()=>setPage(5),350)},
-                className:"rounded-3xl p-5 border-2 text-center transition hover:-translate-y-1 "+
-                (food===name?"border-pink bg-pink/5":"border-gray-100 bg-white")},
-                h("div",{className:"text-4xl"},icon),h("div",{className:"font-extrabold mt-2 text-gray-800"},name)))
-            )
-          ),
-
-          page===5 && h("section",{className:"card p-7 sm:p-10 text-center"},
-            h("div",{className:"text-6xl mb-5"},"😘💐"),
-            h("p",{className:"text-2xl sm:text-3xl font-black leading-snug text-gray-900"},"glad you didn't say no. be ready by 6, I'm coming to get you 😘"),
-            h("p",{className:"mt-5 text-gray-500 font-bold leading-relaxed"},"P.S. normal people text. I made a website on Replit during lunch for you. no big deal."),
-            h("button",{onClick:()=>setPage(6),className:"mt-8 rounded-full bg-pink text-white font-extrabold px-8 py-4 hover:scale-105 transition"},"ok I accept 💖")
-          ),
-
-          page===6 && h("section",{className:"card p-7 sm:p-10 text-center"},
-            h("div",{className:"text-5xl mb-3"},"🧾"),
-            h("h1",{className:"text-3xl sm:text-4xl font-black text-gray-900"},"one small fee"),
-            h("p",{className:"mt-2 text-gray-500 font-bold"},"to confirm your acceptance of this date, please complete the following transaction. totally normal."),
-            h("div",{className:"mt-7 rounded-3xl border-2 border-dashed border-pink/30 bg-pink/5 p-6 text-left"},
-              h("div",{className:"flex justify-between gap-4 font-black text-gray-800"},
-                h("span",null,"Date Agreement™"),h("span",null,"$499")),
-              h("div",{className:"mt-2 text-sm font-bold text-gray-500"},"One-time fee · non-refundable"),
-              h("div",{className:"mt-5 border-t border-pink/20 pt-4 flex justify-between font-black"},
-                h("span",null,"TOTAL"),h("span",null,"$499.00"))
-            ),
-            h("button",{onClick:()=>{
-              alert("Just kidding! You don't have to pay! It's a date! See you at 6 ❤️");
-              confetti();
-              const msg = `💕 NEW DATE REQUEST!%0A%0A📅 Date: ${date || "Not selected"}%0A🕕 Time: ${time}%0A🍽️ Vibe: ${food || "Not selected"}%0A%0A❤️ She said YES!`;
-              setTimeout(()=>{ window.location.href = "https://wa.me/255655595731?text=" + msg; }, 900);
-            },
-              className:"mt-7 w-full rounded-full bg-pink text-white font-extrabold px-6 py-4 hover:scale-[1.02] transition"},"pay $499 & confirm 😘")
-          )
-        )
-      )
-    ),
-    h("footer",{className:"relative z-10 text-center pb-5 text-sm font-extrabold text-gray-400"},"built on Replit ❤️")
-  );
-}
-createRoot(document.getElementById("root")).render(h(App));
-</script>
+  <section id="mainView" class="hidden">
+    <header class="topbar">
+      <div class="brand small"><div id="topCollegeLogo" class="logo college-logo">🍽️</div><div><strong>CampusBite</strong><span id="roleLabel"></span></div></div>
+      <button class="icon-btn" onclick="logout()">↪</button>
+    </header>
+    <main id="content"></main>
+    <nav id="nav" class="bottom-nav"></nav>
+  </section>
+</div>
+<div id="toast"></div>
+<script src="app.js"></script>
 </body>
 </html>
