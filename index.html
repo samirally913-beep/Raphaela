@@ -8,7 +8,6 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
@@ -23,3591 +22,948 @@
   --green:#22C55E;
   --red:#EF4444;
   --blue:#2563EB;
-
-  --shadow:0 15px 40px rgba(31,41,55,.10);
-  --soft:0 8px 25px rgba(31,41,55,.07);
+  --bg-soft:#fffaf6;
+  --line:#f0ece8;
+  --shadow:0 18px 45px rgba(31,41,55,.12);
+  --soft:0 10px 30px rgba(31,41,55,.08);
+  --radius-xl:32px;
+  --radius-lg:24px;
+  --radius-md:18px;
 }
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 body{
   font-family:Poppins,Arial,sans-serif;
-  background:var(--cream);
+  background:
+    radial-gradient(circle at top left, rgba(255,107,53,.10), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(255,183,3,.09), transparent 25%),
+    var(--cream);
   color:var(--text);
 }
+button,input,textarea,select{font-family:inherit}
+button{border:0;cursor:pointer}
+a{text-decoration:none}
 
-button,input,textarea,select{
-  font-family:inherit;
-}
-
-button{
-  border:0;
-  cursor:pointer;
-}
-
-.page{
-  display:none;
-  min-height:100vh;
-  padding-bottom:110px;
-}
-
-.page.active{
-  display:block;
-}
-
-
-/* =========================
-   TOPBAR
-========================= */
+.page{display:none;min-height:100vh;padding-bottom:120px}
+.page.active{display:block}
 
 .topbar{
-  height:72px;
-  padding:0 5%;
-
-  background:rgba(255,255,255,.95);
+  position:sticky; top:0; z-index:50;
+  height:78px; padding:0 5%;
+  background:rgba(255,255,255,.86);
   backdrop-filter:blur(18px);
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  position:sticky;
-  top:0;
-  z-index:50;
-
-  border-bottom:1px solid #eee;
+  border-bottom:1px solid rgba(17,24,39,.05);
+  display:flex; align-items:center; justify-content:space-between;
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-
-  font-size:18px;
-  font-weight:800;
-}
-
-.brand span{
-  color:var(--orange);
-}
-
+.brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:800}
+.brand span{color:var(--orange)}
 .logo{
-  width:43px;
-  height:43px;
-
-  border-radius:15px;
-
-  background:
-    linear-gradient(135deg,var(--orange),var(--gold));
-
-  display:grid;
-  place-items:center;
-
-  color:#fff;
-  font-size:21px;
-
-  box-shadow:
-    0 8px 20px rgba(255,107,53,.25);
+  width:46px;height:46px;border-radius:16px;
+  background:linear-gradient(135deg,var(--orange),var(--gold));
+  display:grid;place-items:center;color:#fff;font-size:22px;
+  box-shadow:0 10px 25px rgba(255,107,53,.28)
 }
-
 .notification{
-  width:43px;
-  height:43px;
-
-  border-radius:14px;
-
-  background:#fff;
-
-  box-shadow:var(--soft);
+  width:46px;height:46px;border-radius:15px;background:#fff;box-shadow:var(--soft);
+  display:grid;place-items:center;font-size:20px
 }
-
-
-/* =========================
-   HERO
-========================= */
 
 .hero{
   width:min(1180px,92%);
-  margin:auto;
-
-  padding:55px 0 30px;
-
-  display:grid;
-  grid-template-columns:1fr 1fr;
-
-  gap:40px;
-  align-items:center;
+  margin:auto;padding:42px 0 26px;
+  display:grid; grid-template-columns:1.1fr .9fr; gap:42px; align-items:center;
 }
 
 .eyebrow{
-  display:inline-block;
-
-  background:#fff;
-  color:var(--orange);
-
-  padding:8px 14px;
-
-  border-radius:50px;
-
-  font-size:11px;
-  font-weight:700;
-
-  box-shadow:var(--soft);
+  display:inline-flex; align-items:center; gap:8px;
+  background:#fff; color:var(--orange); padding:8px 14px;
+  border-radius:999px; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  box-shadow:var(--soft); border:1px solid rgba(255,107,53,.08)
 }
 
 .hero h1{
-  font-size:clamp(38px,5vw,64px);
-  line-height:1.08;
-
-  letter-spacing:-2px;
-
-  margin:18px 0;
+  font-size:clamp(42px,5vw,66px); line-height:1.02; letter-spacing:-2px;
+  margin:18px 0 14px; max-width:540px;
 }
+.hero h1 span{color:var(--orange)}
+.hero p{color:var(--muted); line-height:1.8; max-width:540px; font-size:15px}
 
-.hero h1 span{
-  color:var(--orange);
-}
+.hero-cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:24px}
+.hero-cta-row .primary-btn,
+.hero-cta-row .secondary-btn{width:auto; min-width:180px; padding:15px 18px; border-radius:16px; font-weight:700}
+.hero-cta-row .primary-btn{background:linear-gradient(135deg,var(--orange),#ff7f43); color:#fff; box-shadow:0 12px 25px rgba(255,107,53,.25)}
+.hero-cta-row .secondary-btn{background:#fff; color:var(--text); box-shadow:var(--soft)}
 
-.hero p{
-  color:var(--muted);
-  line-height:1.8;
+.metrics-strip{
+  display:flex; flex-wrap:wrap; gap:14px; margin-top:26px;
 }
+.metric-pill{
+  background:rgba(255,255,255,.7); backdrop-filter:blur(8px);
+  padding:12px 14px; border-radius:16px; box-shadow:var(--soft); border:1px solid rgba(17,24,39,.03);
+  min-width:120px;
+}
+.metric-pill strong{display:block;font-size:20px;line-height:1.2}
+.metric-pill span{font-size:11px;color:var(--muted)}
 
 .hero-image{
-  height:390px;
-
-  padding:10px;
-
-  border-radius:35px;
-
-  background:#fff;
-
-  box-shadow:var(--shadow);
+  height:440px; padding:12px; border-radius:36px; background:#fff; box-shadow:var(--shadow);
+  position:relative; overflow:hidden;
 }
-
-.hero-image img{
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-
-  border-radius:28px;
+.hero-image::before{
+  content:""; position:absolute; inset:18px 18px auto auto; width:120px; height:120px;
+  background:linear-gradient(135deg, rgba(255,183,3,.18), rgba(255,107,53,.22)); border-radius:50%; filter:blur(4px);
 }
-
-
-/* =========================
-   SEARCH
-========================= */
-
-.search-box{
-  background:#fff;
-
-  border-radius:18px;
-
-  padding:7px;
-
-  display:flex;
-  align-items:center;
-  gap:5px;
-
-  box-shadow:var(--shadow);
-
-  margin-top:22px;
-}
-
-.search-box input{
-  flex:1;
-  min-width:0;
-
-  border:0;
-  outline:0;
-
-  padding:14px 7px;
-}
-
-.search-box button{
-  width:48px;
-  height:48px;
-
-  border-radius:14px;
-
-  background:var(--orange);
-
-  color:white;
-}
-
-
-/* =========================
-   ROLE CARDS
-========================= */
+.hero-image img{width:100%;height:100%;object-fit:cover;border-radius:28px;display:block}
 
 .role-section{
-  width:min(1180px,92%);
-  margin:auto;
-
-  display:grid;
-  grid-template-columns:1fr 1fr;
-
-  gap:18px;
+  width:min(1180px,92%); margin:auto; display:grid; grid-template-columns:1fr 1fr; gap:18px;
 }
-
 .role-card{
-  background:#fff;
-
-  border-radius:25px;
-
-  padding:25px;
-
-  box-shadow:var(--soft);
-
-  transition:.25s;
+  background:#fff; border-radius:28px; padding:28px; box-shadow:var(--soft);
+  border:1px solid rgba(17,24,39,.04); transition:.25s ease; position:relative; overflow:hidden;
 }
-
-.role-card:hover{
-  transform:translateY(-5px);
+.role-card::before{
+  content:""; position:absolute; inset:0 auto auto 0; width:100%; height:6px;
+  background:linear-gradient(90deg,var(--orange),var(--gold));
 }
-
+.role-card:hover{transform:translateY(-6px); box-shadow:var(--shadow)}
 .role-icon{
-  width:55px;
-  height:55px;
-
-  border-radius:18px;
-
-  background:#fff0e9;
-
-  display:grid;
-  place-items:center;
-
-  font-size:26px;
+  width:64px; height:64px; border-radius:20px; background:linear-gradient(135deg,#fff0e9,#fff5d6);
+  display:grid; place-items:center; font-size:31px;
 }
+.role-card h2{margin-top:18px;font-size:26px}
+.role-card p{color:var(--muted); font-size:13px; line-height:1.8; margin:8px 0 18px}
+.role-card strong{color:var(--orange); font-size:12px; letter-spacing:.04em; text-transform:uppercase}
 
-.role-card h2{
-  margin-top:15px;
-}
+.section{width:min(1180px,92%); margin:52px auto}
+.section-title{display:flex; justify-content:space-between; align-items:center; margin-bottom:18px}
+.section-title h2{font-size:28px; letter-spacing:-.04em}
+.section-title button{background:transparent;color:var(--orange);font-weight:700;padding:8px 0}
 
-.role-card p{
-  color:var(--muted);
-
-  font-size:13px;
-  line-height:1.7;
-
-  margin:7px 0 12px;
-}
-
-.role-card strong{
-  color:var(--orange);
-  font-size:12px;
-}
-
-
-/* =========================
-   SECTIONS
-========================= */
-
-.section{
-  width:min(1180px,92%);
-  margin:45px auto;
-}
-
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  margin-bottom:18px;
-}
-
-.section-title h2{
-  font-size:24px;
-}
-
-
-/* =========================
-   RESTAURANT CARDS
-========================= */
-
-.restaurant-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
+.restaurant-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
 .restaurant-card{
-  background:#fff;
-
-  border-radius:22px;
-
-  overflow:hidden;
-
-  box-shadow:var(--soft);
-
-  transition:.25s;
+  background:#fff; border-radius:22px; overflow:hidden; box-shadow:var(--soft);
+  border:1px solid rgba(17,24,39,.04); transition:all .25s ease;
 }
-
-.restaurant-card:hover{
-  transform:translateY(-4px);
-  box-shadow:var(--shadow);
-}
-
-.restaurant-image{
-  height:190px;
-  position:relative;
-}
-
-.restaurant-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
+.restaurant-card:hover{transform:translateY(-5px); box-shadow:var(--shadow)}
+.restaurant-image{height:200px; position:relative}
+.restaurant-image img{width:100%; height:100%; object-fit:cover; display:block}
 .badge{
-  position:absolute;
-
-  top:12px;
-  left:12px;
-
-  background:#fff;
-
-  padding:6px 10px;
-
-  border-radius:50px;
-
-  font-size:10px;
-  font-weight:700;
+  position:absolute; top:12px; left:12px; background:rgba(255,255,255,.95); backdrop-filter:blur(6px);
+  padding:6px 10px; border-radius:999px; font-size:10px; font-weight:700;
 }
-
-.restaurant-info{
-  padding:15px;
-}
-
-.restaurant-info h3{
-  font-size:16px;
-}
-
-.meta{
-  color:var(--muted);
-
-  font-size:11px;
-
-  margin-top:7px;
-}
-
-.open{
-  color:var(--green);
-
-  font-size:11px;
-
-  margin-top:8px;
-
-  font-weight:600;
-}
-
+.restaurant-info{padding:18px 16px 16px}
+.restaurant-info h3{font-size:18px}
+.meta{margin-top:8px;color:var(--muted);font-size:12px}
+.open{margin-top:9px;color:var(--green);font-size:12px;font-weight:700}
 .view-btn{
-  width:100%;
-
-  margin-top:13px;
-
-  padding:11px;
-
-  border-radius:12px;
-
-  background:#fff0e9;
-
-  color:var(--orange);
-
-  font-weight:700;
+  width:100%; margin-top:14px; padding:12px; border-radius:14px;
+  background:linear-gradient(135deg,#fff0e9,#fff5d6); color:var(--orange); font-weight:800;
 }
-
-
-/* =========================
-   PAGE HEADER
-========================= */
 
 .page-header{
-  width:min(1180px,92%);
-
-  margin:35px auto 25px;
-
-  display:flex;
-
-  justify-content:space-between;
-  align-items:center;
+  width:min(1180px,92%); margin:32px auto 22px; display:flex; justify-content:space-between; align-items:center;
 }
-
-.page-header h1{
-  font-size:30px;
-}
-
-.page-header p{
-  color:var(--muted);
-}
-
+.page-header h1{font-size:32px; letter-spacing:-.04em}
+.page-header p{color:var(--muted); margin-top:4px}
 .back{
-  background:#fff;
-
-  padding:10px 14px;
-
-  border-radius:13px;
-
-  box-shadow:var(--soft);
+  background:#fff; padding:12px 15px; border-radius:14px; box-shadow:var(--soft); font-weight:700;
 }
 
-
-/* =========================
-   CUSTOMER LIST
-========================= */
-
-.restaurant-list{
-  background:#fff;
-
-  border-radius:20px;
-
-  padding:5px;
-}
-
-.list-item{
-  display:flex;
-  align-items:center;
-
-  gap:13px;
-
-  padding:13px;
-
-  border-bottom:1px solid #eee;
-}
-
-.list-item:last-child{
-  border-bottom:0;
-}
-
-.list-item img{
-  width:60px;
-  height:60px;
-
-  border-radius:15px;
-
-  object-fit:cover;
-}
-
-.list-info{
-  flex:1;
-}
-
-.list-info h3{
-  font-size:14px;
-}
-
-.list-info small{
-  color:var(--muted);
-  font-size:10px;
-}
-
+.restaurant-list{background:#fff;border-radius:24px;padding:8px;box-shadow:var(--soft)}
+.list-item{display:flex;align-items:center;gap:14px;padding:14px;border-bottom:1px solid var(--line)}
+.list-item:last-child{border-bottom:0}
+.list-item img{width:66px;height:66px;border-radius:18px;object-fit:cover}
+.list-info{flex:1}
+.list-info h3{font-size:15px}
+.list-info small{color:var(--muted);font-size:10px}
 .favorite{
-  width:40px;
-  height:40px;
-
-  border-radius:12px;
-
-  background:#fff0e9;
-
-  color:var(--orange);
+  width:42px; height:42px; border-radius:14px; background:linear-gradient(135deg,#fff0e9,#fff5d6);
+  color:var(--orange); font-size:20px;
 }
 
+.food-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+.food-card{background:#fff;border-radius:22px;overflow:hidden;box-shadow:var(--soft)}
+.food-card img{width:100%; height:196px; object-fit:cover; display:block}
+.food-info{padding:16px}
+.food-info h3{font-size:18px}
+.food-info p{color:var(--muted);margin:6px 0 12px;font-size:12px;line-height:1.7}
+.price{font-size:26px;font-weight:800;letter-spacing:-.04em}
+.available{display:block;margin-top:8px;color:var(--green);font-size:11px;font-weight:700}
 
-/* =========================
-   FOOD
-========================= */
-
-.food-grid{
-  display:grid;
-
-  grid-template-columns:repeat(3,1fr);
-
-  gap:16px;
-}
-
-.food-card{
-  background:#fff;
-
-  border-radius:20px;
-
-  overflow:hidden;
-
-  box-shadow:var(--soft);
-}
-
-.food-card img{
-  width:100%;
-  height:180px;
-
-  object-fit:cover;
-}
-
-.food-info{
-  padding:14px;
-}
-
-.food-info p{
-  color:var(--muted);
-
-  font-size:11px;
-
-  margin:5px 0;
-}
-
-.price{
-  font-size:18px;
-  font-weight:800;
-}
-
-.available{
-  display:block;
-
-  color:var(--green);
-
-  font-size:10px;
-
-  margin-top:5px;
-}
-
-
-/* =========================
-   LOGIN
-========================= */
-
-.auth-wrapper{
-  width:min(500px,92%);
-
-  margin:60px auto;
-}
-
-.auth-card{
-  background:#fff;
-
-  padding:30px;
-
-  border-radius:28px;
-
-  box-shadow:var(--shadow);
-}
-
+.auth-wrapper{width:min(500px,92%); margin:46px auto}
+.auth-card{background:#fff; padding:30px; border-radius:32px; box-shadow:var(--shadow); border:1px solid rgba(17,24,39,.04)}
 .auth-logo{
-  width:65px;
-  height:65px;
-
-  border-radius:20px;
-
-  background:
-    linear-gradient(135deg,var(--orange),var(--gold));
-
-  display:grid;
-  place-items:center;
-
-  font-size:30px;
-
-  margin-bottom:20px;
+  width:72px; height:72px; border-radius:24px; background:linear-gradient(135deg,var(--orange),var(--gold));
+  display:grid; place-items:center; font-size:34px; box-shadow:0 12px 25px rgba(255,107,53,.22); margin-bottom:22px;
 }
-
-.auth-card h1{
-  margin-bottom:8px;
+.auth-card h1{margin-bottom:8px; font-size:34px; letter-spacing:-.04em}
+.auth-card > p{color:var(--muted); font-size:13px; line-height:1.8; margin-bottom:26px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:12px;font-weight:700;margin-bottom:8px}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%; border:1px solid #ebebeb; background:#fbfaf9; border-radius:14px; padding:13px 14px; outline:none;
+  font-size:14px; transition:.2s ease;
 }
-
-.auth-card > p{
-  color:var(--muted);
-
-  font-size:13px;
-
-  margin-bottom:25px;
-}
-
-.form-group{
-  margin-bottom:17px;
-}
-
-.form-group label{
-  display:block;
-
-  font-size:12px;
-  font-weight:600;
-
-  margin-bottom:7px;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select{
-  width:100%;
-
-  border:1px solid #e5e7eb;
-
-  outline:none;
-
-  border-radius:13px;
-
-  padding:13px;
-
-  background:#fafafa;
-}
-
-.form-group textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:rgba(255,107,53,.45); box-shadow:0 0 0 4px rgba(255,107,53,.08)}
+.form-group textarea{min-height:100px; resize:vertical}
 .primary-btn{
-  width:100%;
-
-  padding:14px;
-
-  border-radius:14px;
-
-  background:var(--orange);
-
-  color:#fff;
-
-  font-weight:700;
+  width:100%; padding:15px; border-radius:15px; background:linear-gradient(135deg,var(--orange),#ff7f43); color:#fff; font-weight:800;
+  box-shadow:0 14px 25px rgba(255,107,53,.24); margin-top:2px;
 }
-
 .secondary-btn{
-  width:100%;
-
-  padding:14px;
-
-  border-radius:14px;
-
-  background:#fff0e9;
-
-  color:var(--orange);
-
-  font-weight:700;
-
-  margin-top:10px;
+  width:100%; padding:15px; border-radius:15px; background:#fff0e9; color:var(--orange); font-weight:800; margin-top:10px;
 }
 
-
-/* =========================
-   BUSINESS DASHBOARD
-========================= */
-
-.stats{
-  width:min(1180px,92%);
-
-  margin:auto;
-
-  display:grid;
-
-  grid-template-columns:repeat(4,1fr);
-
-  gap:15px;
-}
-
+.stats{width:min(1180px,92%); margin:auto; display:grid; grid-template-columns:repeat(4,1fr); gap:15px}
 .stat{
-  background:#fff;
-
-  padding:20px;
-
-  border-radius:20px;
-
-  box-shadow:var(--soft);
+  background:#fff; padding:20px; border-radius:24px; box-shadow:var(--soft);
+  border:1px solid rgba(17,24,39,.04); min-height:150px;
 }
+.stat small{display:block;color:var(--muted);font-size:10px;margin-top:12px;text-transform:uppercase;letter-spacing:.08em}
+.stat strong{display:block;font-size:26px;margin-top:10px;letter-spacing:-.04em}
 
-.stat small{
-  display:block;
-
-  color:var(--muted);
-
-  font-size:10px;
-
-  margin-top:8px;
-}
-
-.stat strong{
-  display:block;
-
-  font-size:25px;
-
-  margin-top:4px;
-}
-
-
-/* =========================
-   BUSINESS ACTIONS
-========================= */
-
-.actions{
-  width:min(1180px,92%);
-
-  margin:20px auto;
-
-  display:grid;
-
-  grid-template-columns:repeat(4,1fr);
-
-  gap:14px;
-}
-
+.actions{width:min(1180px,92%); margin:22px auto; display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
 .action{
-  background:#fff;
-
-  padding:19px;
-
-  border-radius:19px;
-
-  box-shadow:var(--soft);
-
-  text-align:left;
-
-  font-weight:700;
+  background:#fff; padding:22px 18px; border-radius:20px; box-shadow:var(--soft); text-align:left; font-weight:800;
+  border:1px solid rgba(17,24,39,.04); transition:.2s ease;
 }
-
-.action:hover{
-  transform:translateY(-3px);
-}
-
-
-/* =========================
-   LOCATION SETUP
-========================= */
+.action:hover{transform:translateY(-3px)}
 
 .location-card{
-  width:min(1180px,92%);
-
-  margin:25px auto;
-
-  background:#fff;
-
-  padding:25px;
-
-  border-radius:25px;
-
-  box-shadow:var(--shadow);
+  width:min(1180px,92%); margin:27px auto; background:#fff; padding:26px; border-radius:30px; box-shadow:var(--shadow);
+  border:1px solid rgba(17,24,39,.04);
 }
-
-.location-header{
-  display:flex;
-
-  align-items:center;
-
-  gap:12px;
-
-  margin-bottom:20px;
-}
-
+.location-header{display:flex; align-items:center; gap:12px; margin-bottom:16px}
 .location-icon{
-  width:50px;
-  height:50px;
-
-  border-radius:16px;
-
-  background:#fff0e9;
-
-  display:grid;
-  place-items:center;
-
-  font-size:25px;
+  width:54px;height:54px;border-radius:18px;background:linear-gradient(135deg,#fff0e9,#fff5d6);display:grid;place-items:center;font-size:26px;
 }
-
-.location-header p{
-  color:var(--muted);
-  font-size:12px;
-}
-
+.location-header p{color:var(--muted); font-size:12px; line-height:1.7; margin-top:5px}
 .location-status{
-  padding:15px;
-
-  border-radius:15px;
-
-  background:#f8fafc;
-
-  margin-bottom:18px;
+  padding:16px; border-radius:16px; background:#f8fafc; margin-bottom:18px; border:1px solid rgba(17,24,39,.04);
 }
-
-.location-status strong{
-  display:block;
-}
-
-.location-status span{
-  color:var(--muted);
-
-  font-size:11px;
-}
-
-.location-buttons{
-  display:grid;
-
-  grid-template-columns:1fr 1fr;
-
-  gap:12px;
-}
-
-.location-btn{
-  padding:14px;
-
-  border-radius:14px;
-
-  font-weight:700;
-}
-
-.current{
-  background:#eaf7ee;
-  color:#15803d;
-}
-
-.map-btn{
-  background:#eef4ff;
-  color:var(--blue);
-}
-
-.coordinates{
-  display:grid;
-
-  grid-template-columns:1fr 1fr;
-
-  gap:12px;
-
-  margin-top:15px;
-}
-
-.coordinate-box{
-  background:#f8fafc;
-
-  padding:13px;
-
-  border-radius:13px;
-}
-
-.coordinate-box small{
-  display:block;
-
-  color:var(--muted);
-
-  font-size:10px;
-}
-
-.coordinate-box strong{
-  font-size:13px;
-}
-
-.save-location{
-  margin-top:15px;
-
-  width:100%;
-
-  padding:15px;
-
-  border-radius:14px;
-
-  background:var(--orange);
-
-  color:#fff;
-
-  font-weight:800;
-}
-
-
-/* =========================
-   MAP
-========================= */
+.location-status strong{display:block; font-size:16px}
+.location-status span{color:var(--muted); font-size:11px}
+.location-buttons{display:grid;grid-template-columns:1fr 1fr; gap:12px}
+.location-btn{padding:15px;border-radius:14px;font-weight:800}
+.current{background:#eaf7ee;color:#15803d}
+.map-btn{background:#eef4ff;color:var(--blue)}
+.coordinates{display:grid;grid-template-columns:1fr 1fr; gap:12px; margin-top:18px}
+.coordinate-box{background:#f8fafc;padding:14px;border-radius:14px}
+.coordinate-box small{display:block;color:var(--muted);font-size:10px}
+.coordinate-box strong{font-size:14px}
+.save-location{margin-top:18px;width:100%;padding:15px;border-radius:14px;background:linear-gradient(135deg,var(--orange),#ff7f43);color:#fff;font-weight:800}
 
 .map{
-  height:280px;
-
-  border-radius:20px;
-
-  margin-top:18px;
-
-  background:
-    linear-gradient(
-      45deg,
-      #dbeafe 25%,
-      #eff6ff 25%,
-      #eff6ff 50%,
-      #dbeafe 50%,
-      #dbeafe 75%,
-      #eff6ff 75%
-    );
-
-  background-size:50px 50px;
-
-  position:relative;
-
-  overflow:hidden;
-
-  display:none;
-
-  align-items:center;
-  justify-content:center;
+  height:300px; border-radius:22px; margin-top:18px; background:linear-gradient(45deg,#dbeafe 25%,#eff6ff 25%,#eff6ff 50%,#dbeafe 50%,#dbeafe 75%,#eff6ff 75%); background-size:50px 50px; position:relative; overflow:hidden; display:none; align-items:center; justify-content:center;
 }
-
-.map.show{
-  display:flex;
-}
-
-.map::before{
-  content:"";
-
-  position:absolute;
-
-  width:80%;
-  height:5px;
-
-  background:#fff;
-
-  transform:rotate(25deg);
-
-  box-shadow:
-    0 50px #fff,
-    0 -60px #fff;
-}
-
-.map::after{
-  content:"";
-
-  position:absolute;
-
-  width:100%;
-  height:5px;
-
-  background:#fff;
-
-  transform:rotate(-35deg);
-}
-
-.map-pin{
-  position:relative;
-
-  z-index:5;
-
-  width:55px;
-  height:55px;
-
-  border-radius:50% 50% 50% 0;
-
-  background:var(--orange);
-
-  transform:rotate(-45deg);
-
-  display:grid;
-  place-items:center;
-
-  color:#fff;
-
-  box-shadow:
-    0 8px 25px rgba(255,107,53,.35);
-}
-
-.map-pin span{
-  transform:rotate(45deg);
-}
-
-
-/* =========================
-   AI ASSISTANT
-========================= */
-
-.ai-button{
-  position:fixed;
-
-  right:22px;
-  bottom:95px;
-
-  width:62px;
-  height:62px;
-
-  border-radius:50%;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--orange),
-      var(--gold)
-    );
-
-  color:#fff;
-
-  font-size:25px;
-
-  box-shadow:
-    0 12px 30px
-    rgba(255,107,53,.35);
-
-  z-index:60;
-}
-
-.ai-panel{
-  position:fixed;
-
-  right:20px;
-  bottom:170px;
-
-  width:min(380px,calc(100% - 40px));
-
-  height:500px;
-
-  background:#fff;
-
-  border-radius:25px;
-
-  box-shadow:
-    0 20px 60px
-    rgba(31,41,55,.22);
-
-  display:none;
-
-  flex-direction:column;
-
-  overflow:hidden;
-
-  z-index:100;
-}
-
-.ai-panel.show{
-  display:flex;
-}
-
-.ai-header{
-  padding:17px;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--orange),
-      var(--gold)
-    );
-
-  color:#fff;
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-}
-
-.ai-header h3{
-  font-size:15px;
-}
-
-.ai-header small{
-  display:block;
-
-  font-size:9px;
-
-  opacity:.9;
-}
-
-.ai-close{
-  width:32px;
-  height:32px;
-
-  border-radius:10px;
-
-  background:rgba(255,255,255,.2);
-
-  color:#fff;
-}
-
-.ai-messages{
-  flex:1;
-
-  padding:15px;
-
-  overflow-y:auto;
-
-  background:#fafafa;
-}
-
-.ai-message{
-  max-width:85%;
-
-  padding:11px 13px;
-
-  border-radius:15px;
-
-  margin-bottom:10px;
-
-  font-size:11px;
-
-  line-height:1.6;
-}
-
-.ai-message.bot{
-  background:#fff;
-
-  border:1px solid #eee;
-}
-
-.ai-message.user{
-  background:var(--orange);
-
-  color:#fff;
-
-  margin-left:auto;
-}
-
-.ai-input{
-  display:flex;
-
-  gap:6px;
-
-  padding:10px;
-
-  border-top:1px solid #eee;
-}
-
-.ai-input input{
-  flex:1;
-
-  border:1px solid #eee;
-
-  outline:none;
-
-  border-radius:12px;
-
-  padding:11px;
-
-  font-size:11px;
-}
-
-.ai-input button{
-  width:45px;
-
-  border-radius:12px;
-
-  background:var(--orange);
-
-  color:#fff;
-}
-
-
-/* =========================
-   BOTTOM NAV
-========================= */
+.map.show{display:flex}
+.map::before{content:""; position:absolute; width:80%; height:5px; background:#fff; transform:rotate(25deg); box-shadow:0 52px #fff, 0 -58px #fff}
+.map::after{content:""; position:absolute; width:100%; height:5px; background:#fff; transform:rotate(-35deg)}
+.map-pin{position:relative; z-index:5; width:58px;height:58px;border-radius:50% 50% 50% 0;background:var(--orange);transform:rotate(-45deg); display:grid; place-items:center; color:#fff; box-shadow:0 12px 28px rgba(255,107,53,.35)}
+.map-pin span{transform:rotate(45deg)}
+
+.ai-button{position:fixed;right:22px;bottom:95px;width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--gold));color:#fff;font-size:28px;box-shadow:0 18px 32px rgba(255,107,53,.35);z-index:60}
+.ai-panel{position:fixed;right:20px;bottom:170px;width:min(380px,calc(100% - 40px));height:500px;background:#fff;border-radius:28px;box-shadow:0 24px 70px rgba(31,41,55,.24);display:none;flex-direction:column;overflow:hidden;z-index:100}
+.ai-panel.show{display:flex}
+.ai-header{padding:16px 18px;background:linear-gradient(135deg,var(--orange),var(--gold));color:#fff;display:flex;justify-content:space-between;align-items:center}
+.ai-header h3{font-size:15px}
+.ai-header small{display:block;font-size:9px;opacity:.9}
+.ai-close{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,.2);color:#fff}
+.ai-messages{flex:1;padding:15px;overflow-y:auto;background:#fafafa}
+.ai-message{max-width:85%;padding:12px 14px;border-radius:16px;margin-bottom:10px;font-size:11px;line-height:1.6}
+.ai-message.bot{background:#fff;border:1px solid #eee}
+.ai-message.user{background:var(--orange);color:#fff;margin-left:auto}
+.ai-input{display:flex;gap:6px;padding:10px;border-top:1px solid #eee}
+.ai-input input{flex:1;border:1px solid #eee;outline:none;border-radius:12px;padding:11px;font-size:11px}
+.ai-input button{width:46px;border-radius:12px;background:var(--orange);color:#fff}
 
 .bottom-nav{
-  position:fixed;
-
-  bottom:13px;
-
-  left:50%;
-
-  transform:translateX(-50%);
-
-  width:min(570px,92%);
-
-  background:rgba(255,255,255,.95);
-
-  backdrop-filter:blur(18px);
-
-  padding:8px;
-
-  border-radius:24px;
-
-  box-shadow:
-    0 16px 45px
-    rgba(31,41,55,.18);
-
-  display:flex;
-
-  justify-content:space-around;
-
-  z-index:55;
+  position:fixed; bottom:13px; left:50%; transform:translateX(-50%); width:min(570px,92%);
+  background:rgba(255,255,255,.96); backdrop-filter:blur(18px); padding:8px; border-radius:26px;
+  box-shadow:0 18px 50px rgba(31,41,55,.18); display:flex; justify-content:space-around; z-index:55;
 }
+.bottom-nav button{background:none;color:var(--muted);font-size:10px;font-weight:800;padding:7px 12px;border-radius:15px}
+.bottom-nav button.active{color:var(--orange);background:#fff0e9}
+.bottom-nav b{display:block;font-size:18px;margin-bottom:2px}
 
-.bottom-nav button{
-  background:none;
-
-  color:var(--muted);
-
-  font-size:10px;
-
-  font-weight:700;
-
-  padding:7px 12px;
-
-  border-radius:15px;
-}
-
-.bottom-nav button.active{
-  color:var(--orange);
-
-  background:#fff0e9;
-}
-
-.bottom-nav b{
-  display:block;
-
-  font-size:18px;
-
-  margin-bottom:3px;
-}
-
-
-/* =========================
-   MODAL
-========================= */
-
-.modal{
-  position:fixed;
-
-  inset:0;
-
-  background:rgba(31,41,55,.45);
-
-  display:none;
-
-  align-items:flex-end;
-
-  justify-content:center;
-
-  padding:15px;
-
-  z-index:200;
-}
-
-.modal.show{
-  display:flex;
-}
-
-.modal-box{
-  width:min(550px,100%);
-
-  background:#fff;
-
-  padding:25px;
-
-  border-radius:28px;
-
-  box-shadow:var(--shadow);
-}
-
-.modal-box p{
-  color:var(--muted);
-
-  font-size:13px;
-
-  margin:10px 0 20px;
-}
-
-.close{
-  float:right;
-
-  width:35px;
-  height:35px;
-
-  border-radius:12px;
-
-  background:#f3f4f6;
-}
-
-
-/* =========================
-   TOAST
-========================= */
+.modal{position:fixed;inset:0;background:rgba(31,41,55,.45);display:none;align-items:flex-end;justify-content:center;padding:15px;z-index:200}
+.modal.show{display:flex}
+.modal-box{width:min(550px,100%);background:#fff;padding:25px;border-radius:28px;box-shadow:var(--shadow)}
+.modal-box p{color:var(--muted);font-size:13px;margin:12px 0 20px;line-height:1.7}
+.close{float:right;width:35px;height:35px;border-radius:12px;background:#f3f4f6}
 
 .toast{
-  position:fixed;
-
-  top:85px;
-
-  left:50%;
-
-  transform:translate(-50%,-20px);
-
-  background:#1f2937;
-
-  color:#fff;
-
-  padding:12px 17px;
-
-  border-radius:14px;
-
-  font-size:12px;
-
-  opacity:0;
-
-  pointer-events:none;
-
-  transition:.25s;
-
-  z-index:300;
+  position:fixed; top:85px; left:50%; transform:translate(-50%,-20px); background:#1f2937; color:#fff; padding:12px 17px; border-radius:14px; font-size:12px; opacity:0; pointer-events:none; transition:.25s; z-index:300;
 }
-
-.toast.show{
-  opacity:1;
-
-  transform:translate(-50%,0);
-}
-
-
-/* =========================
-   RESPONSIVE
-========================= */
+.toast.show{opacity:1; transform:translate(-50%,0)}
 
 @media(max-width:820px){
-
-  .hero{
-    grid-template-columns:1fr;
-  }
-
-  .restaurant-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .food-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .actions{
-    grid-template-columns:1fr 1fr;
-  }
-
+  .hero{grid-template-columns:1fr}
+  .restaurant-grid,.food-grid{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .actions{grid-template-columns:1fr 1fr}
 }
 
 @media(max-width:560px){
-
-  .brand{
-    font-size:14px;
-  }
-
-  .hero h1{
-    font-size:40px;
-  }
-
-  .hero-image{
-    height:245px;
-  }
-
-  .role-section{
-    grid-template-columns:1fr;
-  }
-
-  .restaurant-grid{
-    grid-template-columns:1fr;
-  }
-
-  .food-grid{
-    grid-template-columns:1fr;
-  }
-
-  .location-buttons{
-    grid-template-columns:1fr;
-  }
-
-  .coordinates{
-    grid-template-columns:1fr;
-  }
-
-  .page-header h1{
-    font-size:24px;
-  }
-
+  .brand{font-size:14px}
+  .hero h1{font-size:40px}
+  .hero-image{height:245px}
+  .role-section,.restaurant-grid,.food-grid,.location-buttons,.coordinates{grid-template-columns:1fr}
+  .page-header h1{font-size:24px}
+  .hero-cta-row{display:grid;grid-template-columns:1fr}
+  .hero-cta-row .primary-btn,.hero-cta-row .secondary-btn{width:100%}
 }
 
 </style>
 </head>
-
-
 <body>
 
-
-<!-- =====================================================
-     TOP BAR
-===================================================== -->
-
 <header class="topbar">
-
   <div class="brand">
-
-    <div class="logo">
-      🍽️
-    </div>
-
-    <div>
-      Samir <span>Food</span> Locations
-    </div>
-
+    <div class="logo">🍽️</div>
+    <div>Samir <span>Food</span> Locations</div>
   </div>
-
-  <button
-    class="notification"
-    onclick="toast('Hakuna notification mpya 🔔')">
-
-    🔔
-
-  </button>
-
+  <button class="notification" onclick="toast('Hakuna notification mpya 🔔')">🔔</button>
 </header>
 
-
-
-<!-- =====================================================
-     HOME
-===================================================== -->
-
-<main
-  id="homePage"
-  class="page active">
-
+<main id="homePage" class="page active">
   <section class="hero">
-
     <div>
+      <div class="eyebrow">🍽️ Restaurant Finder</div>
+      <h1>Discover delicious <span>food near you.</span></h1>
+      <p>Find restaurants, explore today's menu and discover great food around you.</p>
 
-      <div class="eyebrow">
-        🍽️ RESTAURANT FINDER
+      <div class="hero-cta-row">
+        <button class="primary-btn" onclick="openPage('customerPage')">Explore Now</button>
+        <button class="secondary-btn" onclick="openPage('businessLoginPage')">Become a Vendor</button>
       </div>
 
-      <h1>
-        Discover delicious
-        <span>food near you.</span>
-      </h1>
-
-      <p>
-        Find restaurants, explore today's menu
-        and discover great food around you.
-      </p>
-
-      <div class="search-box">
-
-        🔎
-
-        <input
-          id="homeSearch"
-          placeholder="Search restaurants, food or location...">
-
-        <button onclick="homeSearch()">
-          →
-        </button>
-
+      <div class="metrics-strip">
+        <div class="metric-pill"><strong>12K+</strong><span>Monthly Orders</span></div>
+        <div class="metric-pill"><strong>230</strong><span>Restaurants</span></div>
+        <div class="metric-pill"><strong>4.8/5</strong><span>Avg Rating</span></div>
       </div>
-
     </div>
-
 
     <div class="hero-image">
-
-      <img
-        src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85"
-        alt="Food">
-
+      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85" alt="Food">
     </div>
-
   </section>
-
-
-  <!-- CUSTOMER / BUSINESS -->
 
   <section class="role-section">
-
-
-    <div
-      class="role-card"
-      onclick="openPage('customerPage')">
-
-      <div class="role-icon">
-        👤
-      </div>
-
-      <h2>
-        CUSTOMER
-      </h2>
-
-      <p>
-        Find restaurants, explore menus
-        and discover delicious food.
-      </p>
-
-      <strong>
-        Explore as Customer →
-      </strong>
-
+    <div class="role-card" onclick="openPage('customerPage')">
+      <div class="role-icon">👤</div>
+      <h2>CUSTOMER</h2>
+      <p>Find restaurants, explore menus and discover delicious food.</p>
+      <strong>Explore as Customer →</strong>
     </div>
 
-
-    <div
-      class="role-card"
-      onclick="openPage('businessLoginPage')">
-
-      <div class="role-icon">
-        🏪
-      </div>
-
-      <h2>
-        BUSINESS
-      </h2>
-
-      <p>
-        Register your restaurant, set its location,
-        manage food and reach customers.
-      </p>
-
-      <strong>
-        Business Login →
-      </strong>
-
+    <div class="role-card" onclick="openPage('businessLoginPage')">
+      <div class="role-icon">🏪</div>
+      <h2>BUSINESS</h2>
+      <p>Register your restaurant, set its location, manage food and reach customers.</p>
+      <strong>Business Login →</strong>
     </div>
-
   </section>
 
-
-  <!-- POPULAR -->
-
   <section class="section">
-
     <div class="section-title">
-
-      <h2>
-        Popular Restaurants
-      </h2>
-
-      <button onclick="openPage('customerPage')">
-        See All →
-      </button>
-
+      <h2>Popular Restaurants</h2>
+      <button onclick="openPage('customerPage')">See All →</button>
     </div>
-
 
     <div class="restaurant-grid">
-
-
       <div class="restaurant-card">
-
         <div class="restaurant-image">
-
-          <img
-            src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=85">
-
-          <span class="badge">
-            ⭐ Top Rated
-          </span>
-
+          <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=85">
+          <span class="badge">⭐ Top Rated</span>
         </div>
-
         <div class="restaurant-info">
-
-          <h3>
-            The Royal Kitchen
-          </h3>
-
-          <div class="meta">
-            ⭐ 4.8 · 📍 1.2 km
-          </div>
-
-          <div class="open">
-            ● Open until 10:00 PM
-          </div>
-
-          <button
-            class="view-btn"
-            onclick="showRestaurant('The Royal Kitchen')">
-
-            View Restaurant →
-
-          </button>
-
+          <h3>The Royal Kitchen</h3>
+          <div class="meta">⭐ 4.8 · 📍 1.2 km</div>
+          <div class="open">● Open until 10:00 PM</div>
+          <button class="view-btn" onclick="showRestaurant('The Royal Kitchen')">View Restaurant →</button>
         </div>
-
       </div>
 
-
       <div class="restaurant-card">
-
         <div class="restaurant-image">
-
-          <img
-            src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85">
-
-          <span class="badge">
-            🔥 Popular
-          </span>
-
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85">
+          <span class="badge">🔥 Popular</span>
         </div>
-
         <div class="restaurant-info">
-
-          <h3>
-            Burger Corner
-          </h3>
-
-          <div class="meta">
-            ⭐ 4.6 · 📍 2.4 km
-          </div>
-
-          <div class="open">
-            ● Open until 11:00 PM
-          </div>
-
-          <button
-            class="view-btn"
-            onclick="showRestaurant('Burger Corner')">
-
-            View Restaurant →
-
-          </button>
-
+          <h3>Burger Corner</h3>
+          <div class="meta">⭐ 4.6 · 📍 2.4 km</div>
+          <div class="open">● Open until 11:00 PM</div>
+          <button class="view-btn" onclick="showRestaurant('Burger Corner')">View Restaurant →</button>
         </div>
-
       </div>
 
-
       <div class="restaurant-card">
-
         <div class="restaurant-image">
-
-          <img
-            src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=900&q=85">
-
-          <span class="badge">
-            ✨ New
-          </span>
-
+          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=900&q=85">
+          <span class="badge">✨ New</span>
         </div>
-
         <div class="restaurant-info">
-
-          <h3>
-            Kifaru Grill
-          </h3>
-
-          <div class="meta">
-            ⭐ 4.6 · 📍 0.8 km
-          </div>
-
-          <div class="open">
-            ● Open until 11:00 PM
-          </div>
-
-          <button
-            class="view-btn"
-            onclick="showRestaurant('Kifaru Grill')">
-
-            View Restaurant →
-
-          </button>
-
+          <h3>Kifaru Grill</h3>
+          <div class="meta">⭐ 4.6 · 📍 0.8 km</div>
+          <div class="open">● Open until 11:00 PM</div>
+          <button class="view-btn" onclick="showRestaurant('Kifaru Grill')">View Restaurant →</button>
         </div>
-
       </div>
-
     </div>
-
   </section>
-
 </main>
 
-
-
-<!-- =====================================================
-     CUSTOMER PAGE
-===================================================== -->
-
-<main
-  id="customerPage"
-  class="page">
-
+<main id="customerPage" class="page">
   <div class="page-header">
-
     <div>
-
-      <h1>
-        Explore Food 🍔
-      </h1>
-
-      <p>
-        Discover restaurants near you.
-      </p>
-
+      <h1>Explore Food 🍔</h1>
+      <p>Discover restaurants near you.</p>
     </div>
-
-    <button
-      class="back"
-      onclick="openPage('homePage')">
-
-      ← Home
-
-    </button>
-
+    <button class="back" onclick="openPage('homePage')">← Home</button>
   </div>
 
-
   <section class="section">
-
     <div class="search-box">
-
       🔎
-
-      <input
-        id="customerSearch"
-        oninput="filterRestaurants()"
-        placeholder="Search restaurants near you...">
-
-      <button>
-        🔎
-      </button>
-
+      <input id="customerSearch" oninput="filterRestaurants()" placeholder="Search restaurants near you...">
+      <button>🔎</button>
     </div>
-
   </section>
 
-
   <section class="section">
-
     <div class="section-title">
-
-      <h2>
-        📍 Restaurants Near You
-      </h2>
-
-      <span>
-        Distance
-      </span>
-
+      <h2>📍 Restaurants Near You</h2>
+      <span>Distance</span>
     </div>
 
-
-    <div
-      id="restaurantList"
-      class="restaurant-list">
-
-
+    <div id="restaurantList" class="restaurant-list">
       <div class="list-item">
-
-        <img
-          src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80">
-
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80">
         <div class="list-info">
-
-          <h3>
-            Mama Mia Restaurant
-          </h3>
-
-          <small>
-            ⭐ 4.7 · 📍 0.5 km · 🟢 Open
-          </small>
-
+          <h3>Mama Mia Restaurant</h3>
+          <small>⭐ 4.7 · 📍 0.5 km · 🟢 Open</small>
         </div>
-
-        <button
-          class="favorite"
-          onclick="saveRestaurant('Mama Mia Restaurant')">
-
-          ♡
-
-        </button>
-
+        <button class="favorite" onclick="saveRestaurant('Mama Mia Restaurant')">♡</button>
       </div>
 
-
       <div class="list-item">
-
-        <img
-          src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=400&q=80">
-
+        <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=400&q=80">
         <div class="list-info">
-
-          <h3>
-            Kifaru Grill
-          </h3>
-
-          <small>
-            ⭐ 4.6 · 📍 1.2 km · 🟢 Open
-          </small>
-
+          <h3>Kifaru Grill</h3>
+          <small>⭐ 4.6 · 📍 1.2 km · 🟢 Open</small>
         </div>
-
-        <button
-          class="favorite"
-          onclick="saveRestaurant('Kifaru Grill')">
-
-          ♡
-
-        </button>
-
+        <button class="favorite" onclick="saveRestaurant('Kifaru Grill')">♡</button>
       </div>
 
-
       <div class="list-item">
-
-        <img
-          src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=400&q=80">
-
+        <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=400&q=80">
         <div class="list-info">
-
-          <h3>
-            The Royal Kitchen
-          </h3>
-
-          <small>
-            ⭐ 4.8 · 📍 1.8 km · 🟢 Open
-          </small>
-
+          <h3>The Royal Kitchen</h3>
+          <small>⭐ 4.8 · 📍 1.8 km · 🟢 Open</small>
         </div>
-
-        <button
-          class="favorite"
-          onclick="saveRestaurant('The Royal Kitchen')">
-
-          ♡
-
-        </button>
-
+        <button class="favorite" onclick="saveRestaurant('The Royal Kitchen')">♡</button>
       </div>
-
     </div>
-
   </section>
 
-
-  <!-- FOOD -->
-
   <section class="section">
-
     <div class="section-title">
-
-      <h2>
-        Popular Food Today
-      </h2>
-
+      <h2>Popular Food Today</h2>
     </div>
-
 
     <div class="food-grid">
-
-
       <div class="food-card">
-
-        <img
-          src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=85">
-
+        <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=85">
         <div class="food-info">
-
-          <h3>
-            Chicken & Chips
-          </h3>
-
-          <p>
-            Crispy chicken with fresh chips
-          </p>
-
-          <div class="price">
-            TZS 8,000
-          </div>
-
-          <small class="available">
-            ● Available Today
-          </small>
-
+          <h3>Chicken & Chips</h3>
+          <p>Crispy chicken with fresh chips</p>
+          <div class="price">TZS 8,000</div>
+          <small class="available">● Available Today</small>
         </div>
-
       </div>
 
-
       <div class="food-card">
-
-        <img
-          src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=85">
-
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=85">
         <div class="food-info">
-
-          <h3>
-            Beef Burger
-          </h3>
-
-          <p>
-            Beef patty with special sauce
-          </p>
-
-          <div class="price">
-            TZS 12,000
-          </div>
-
-          <small class="available">
-            ● Available Today
-          </small>
-
+          <h3>Beef Burger</h3>
+          <p>Beef patty with special sauce</p>
+          <div class="price">TZS 12,000</div>
+          <small class="available">● Available Today</small>
         </div>
-
       </div>
 
-
       <div class="food-card">
-
-        <img
-          src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=85">
-
+        <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=85">
         <div class="food-info">
-
-          <h3>
-            Pizza Margherita
-          </h3>
-
-          <p>
-            Fresh tomato & cheese
-          </p>
-
-          <div class="price">
-            TZS 10,000
-          </div>
-
-          <small class="available">
-            ● Available Today
-          </small>
-
+          <h3>Pizza Margherita</h3>
+          <p>Fresh tomato & cheese</p>
+          <div class="price">TZS 10,000</div>
+          <small class="available">● Available Today</small>
         </div>
-
       </div>
-
     </div>
-
   </section>
-
 </main>
 
-
-
-<!-- =====================================================
-     BUSINESS LOGIN
-===================================================== -->
-
-<main
-  id="businessLoginPage"
-  class="page">
-
+<main id="businessLoginPage" class="page">
   <div class="auth-wrapper">
-
     <div class="auth-card">
-
-      <div class="auth-logo">
-        🏪
-      </div>
-
-      <h1>
-        Business Login
-      </h1>
-
-      <p>
-        Login to manage your restaurant,
-        food and business location.
-      </p>
-
+      <div class="auth-logo">🏪</div>
+      <h1>Business Login</h1>
+      <p>Login to manage your restaurant, food and business location.</p>
 
       <div class="form-group">
-
-        <label>
-          Email
-        </label>
-
-        <input
-          id="businessEmail"
-          type="email"
-          placeholder="business@example.com">
-
+        <label>Email</label>
+        <input id="businessEmail" type="email" placeholder="business@example.com">
       </div>
-
 
       <div class="form-group">
-
-        <label>
-          Password
-        </label>
-
-        <input
-          id="businessPassword"
-          type="password"
-          placeholder="••••••••">
-
+        <label>Password</label>
+        <input id="businessPassword" type="password" placeholder="••••••••">
       </div>
 
-
-      <button
-        class="primary-btn"
-        onclick="businessLogin()">
-
-        🔐 Login to Business
-
-      </button>
-
-
-      <button
-        class="secondary-btn"
-        onclick="openPage('businessRegisterPage')">
-
-        Create Business Account
-
-      </button>
-
-
-      <button
-        class="secondary-btn"
-        onclick="openPage('homePage')">
-
-        ← Back to Home
-
-      </button>
-
+      <button class="primary-btn" onclick="businessLogin()">🔐 Login to Business</button>
+      <button class="secondary-btn" onclick="openPage('businessRegisterPage')">Create Business Account</button>
+      <button class="secondary-btn" onclick="openPage('homePage')">← Back to Home</button>
     </div>
-
   </div>
-
 </main>
 
-
-
-<!-- =====================================================
-     BUSINESS REGISTER
-===================================================== -->
-
-<main
-  id="businessRegisterPage"
-  class="page">
-
+<main id="businessRegisterPage" class="page">
   <div class="auth-wrapper">
-
     <div class="auth-card">
-
-      <div class="auth-logo">
-        🏪
-      </div>
-
-      <h1>
-        Register Your Restaurant
-      </h1>
-
-      <p>
-        Create your business profile
-        before setting your restaurant location.
-      </p>
-
+      <div class="auth-logo">🏪</div>
+      <h1>Register Your Restaurant</h1>
+      <p>Create your business profile before setting your restaurant location.</p>
 
       <div class="form-group">
-
-        <label>
-          Restaurant Name
-        </label>
-
-        <input
-          id="registerRestaurantName"
-          placeholder="Example: Samir Restaurant">
-
+        <label>Restaurant Name</label>
+        <input id="registerRestaurantName" placeholder="Example: Samir Restaurant">
       </div>
-
 
       <div class="form-group">
-
-        <label>
-          Owner Name
-        </label>
-
-        <input
-          id="registerOwnerName"
-          placeholder="Your name">
-
+        <label>Owner Name</label>
+        <input id="registerOwnerName" placeholder="Your name">
       </div>
-
 
       <div class="form-group">
-
-        <label>
-          Business Email
-        </label>
-
-        <input
-          id="registerEmail"
-          type="email"
-          placeholder="restaurant@example.com">
-
+        <label>Business Email</label>
+        <input id="registerEmail" type="email" placeholder="restaurant@example.com">
       </div>
-
 
       <div class="form-group">
-
-        <label>
-          Password
-        </label>
-
-        <input
-          id="registerPassword"
-          type="password"
-          placeholder="Create password">
-
+        <label>Password</label>
+        <input id="registerPassword" type="password" placeholder="Create password">
       </div>
 
-
-      <button
-        class="primary-btn"
-        onclick="registerBusiness()">
-
-        Create Business Account →
-
-      </button>
-
-
-      <button
-        class="secondary-btn"
-        onclick="openPage('businessLoginPage')">
-
-        Already have an account? Login
-
-      </button>
-
+      <button class="primary-btn" onclick="registerBusiness()">Create Business Account →</button>
+      <button class="secondary-btn" onclick="openPage('businessLoginPage')">Already have an account? Login</button>
     </div>
-
   </div>
-
 </main>
 
-
-
-<!-- =====================================================
-     BUSINESS DASHBOARD
-===================================================== -->
-
-<main
-  id="businessPage"
-  class="page">
-
+<main id="businessPage" class="page">
   <div class="page-header">
-
     <div>
-
-      <h1>
-        Good morning 👋
-      </h1>
-
-      <p id="businessWelcome">
-        Manage your restaurant.
-      </p>
-
+      <h1>Good morning 👋</h1>
+      <p id="businessWelcome">Manage your restaurant.</p>
     </div>
-
-    <button
-      class="back"
-      onclick="businessLogout()">
-
-      Logout
-
-    </button>
-
+    <button class="back" onclick="businessLogout()">Logout</button>
   </div>
-
-
-  <!-- STATS -->
 
   <div class="stats">
-
     <div class="stat">
-
       👁️
-
-      <small>
-        Restaurant Views
-      </small>
-
-      <strong>
-        12.8K
-      </strong>
-
+      <small>Restaurant Views</small>
+      <strong>12.8K</strong>
     </div>
-
-
-    <div class="stat">
-
-      🍽️
-
-      <small>
-        Food Items
-      </small>
-
-      <strong>
-        48
-      </strong>
-
-    </div>
-
-
-    <div class="stat">
-
-      👥
-
-      <small>
-        Customers
-      </small>
-
-      <strong>
-        3,420
-      </strong>
-
-    </div>
-
-
-    <div class="stat">
-
-      📍
-
-      <small>
-        Directions
-      </small>
-
-      <strong>
-        864
-      </strong>
-
-    </div>
-
-  </div>
-
-
-  <!-- ACTIONS -->
-
-  <div class="actions">
-
-    <button
-      class="action"
-      onclick="toast('Add Food itaongezwa kwenye hatua inayofuata 🍔')">
-
-      🍔
-      <br>
-      + Add Food
-
-    </button>
-
-
-    <button
-      class="action"
-      onclick="toast('Restaurant editor imefunguliwa 🏪')">
-
-      🏪
-      <br>
-      Update Restaurant
-
-    </button>
-
-
-    <button
-      class="action"
-      onclick="openLocationSetup()">
-
-      📍
-      <br>
-      Set Location
-
-    </button>
-
-
-    <button
-      class="action"
-      onclick="toast('Opening hours editor ⏰')">
-
-      ⏰
-      <br>
-      Opening Hours
-
-    </button>
-
-  </div>
-
-
-  <!-- LOCATION SETUP -->
-
-  <div
-    id="locationSetup"
-    class="location-card">
-
-    <div class="location-header">
-
-      <div class="location-icon">
-        📍
-      </div>
-
-      <div>
-
-        <h2>
-          Restaurant Location
-        </h2>
-
-        <p>
-          Set the exact location of your business
-          so customers can find you.
-        </p>
-
-      </div>
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label>
-        Restaurant Name
-      </label>
-
-      <input
-        id="locationRestaurantName"
-        placeholder="Restaurant name">
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label>
-        Business Address
-      </label>
-
-      <textarea
-        id="businessAddress"
-        placeholder="Example: Mbezi Beach, Dar es Salaam"></textarea>
-
-    </div>
-
-
-    <div class="location-status">
-
-      <strong id="locationStatus">
-        📍 Location not set
-      </strong>
-
-      <span id="locationMessage">
-        Choose one of the options below.
-      </span>
-
-    </div>
-
-
-    <div class="location-buttons">
-
-      <button
-        class="location-btn current"
-        onclick="useCurrentLocation()">
-
-        📍 Use My Current Location
-
-      </button>
-
-
-      <button
-        class="location-btn map-btn"
-        onclick="toggleMap()">
-
-        🗺️ Pick Location on Map
-
-      </button>
-
-    </div>
-
-
-    <div
-      id="fakeMap"
-      class="map">
-
-      <div class="map-pin">
-        <span>
-          📍
-        </span>
-      </div>
-
-    </div>
-
-
-    <div class="coordinates">
-
-      <div class="coordinate-box">
-
-        <small>
-          Latitude
-        </small>
-
-        <strong id="latitude">
-          Not set
-        </strong>
-
-      </div>
-
-
-      <div class="coordinate-box">
-
-        <small>
-          Longitude
-        </small>
-
-        <strong id="longitude">
-          Not set
-        </strong>
-
-      </div>
-
-    </div>
-
-
-    <button
-      class="save-location"
-      onclick="saveBusinessLocation()">
-
-      💾 Save Restaurant Location
-
-    </button>
-
-  </div>
-
-
-  <!-- CHART -->
-
-  <div class="location-card">
-
-    <h2>
-      Restaurant Performance 📊
-    </h2>
-
-    <p style="color:#6B7280;font-size:12px;margin-top:5px;">
-      Your restaurant activity this week.
-    </p>
-
-    <div
-      style="
-      height:170px;
-      display:flex;
-      align-items:end;
-      gap:10px;
-      margin-top:25px;
-      ">
-
-      <div style="height:35%;flex:1;background:#FFB703;border-radius:8px;"></div>
-
-      <div style="height:48%;flex:1;background:#FFB703;border-radius:8px;"></div>
-
-      <div style="height:55%;flex:1;background:#FFB703;border-radius:8px;"></div>
-
-      <div style="height:65%;flex:1;background:#FF6B35;border-radius:8px;"></div>
-
-      <div style="height:72%;flex:1;background:#FF6B35;border-radius:8px;"></div>
-
-      <div style="height:85%;flex:1;background:#FF6B35;border-radius:8px;"></div>
-
-      <div style="height:95%;flex:1;background:#FF6B35;border-radius:8px;"></div>
-
-    </div>
-
-  </div>
-
-</main>
-
-
-
-<!-- =====================================================
-     ADMIN
-===================================================== -->
-
-<main
-  id="adminPage"
-  class="page">
-
-  <div class="page-header">
-
-    <div>
-
-      <h1>
-        Admin Dashboard
-      </h1>
-
-      <p>
-        Monitor your restaurant platform.
-      </p>
-
-    </div>
-
-    <button
-      class="back"
-      onclick="openPage('homePage')">
-
-      ← Home
-
-    </button>
-
-  </div>
-
-
-  <div class="stats">
-
-    <div class="stat">
-      👥
-      <small>Total Customers</small>
-      <strong>24.8K</strong>
-    </div>
-
-    <div class="stat">
-      🏪
-      <small>Total Restaurants</small>
-      <strong>684</strong>
-    </div>
-
     <div class="stat">
       🍽️
       <small>Food Items</small>
-      <strong>8,942</strong>
+      <strong>48</strong>
     </div>
-
     <div class="stat">
-      👁️
-      <small>Total Views</small>
-      <strong>1.2M</strong>
+      👥
+      <small>Customers</small>
+      <strong>3,420</strong>
     </div>
-
+    <div class="stat">
+      📍
+      <small>Directions</small>
+      <strong>864</strong>
+    </div>
   </div>
 
+  <div class="actions">
+    <button class="action" onclick="toast('Add Food itaongezwa kwenye hatua inayofuata 🍔')">🍔<br>+ Add Food</button>
+    <button class="action" onclick="toast('Restaurant editor imefunguliwa 🏪')">🏪<br>Update Restaurant</button>
+    <button class="action" onclick="openLocationSetup()">📍<br>Set Location</button>
+    <button class="action" onclick="toast('Opening hours editor ⏰')">⏰<br>Opening Hours</button>
+  </div>
+
+  <div id="locationSetup" class="location-card">
+    <div class="location-header">
+      <div class="location-icon">📍</div>
+      <div>
+        <h2>Restaurant Location</h2>
+        <p>Set the exact location of your business so customers can find you.</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Restaurant Name</label>
+      <input id="locationRestaurantName" placeholder="Restaurant name">
+    </div>
+
+    <div class="form-group">
+      <label>Business Address</label>
+      <textarea id="businessAddress" placeholder="Example: Mbezi Beach, Dar es Salaam"></textarea>
+    </div>
+
+    <div class="location-status">
+      <strong id="locationStatus">📍 Location not set</strong>
+      <span id="locationMessage">Choose one of the options below.</span>
+    </div>
+
+    <div class="location-buttons">
+      <button class="location-btn current" onclick="useCurrentLocation()">📍 Use My Current Location</button>
+      <button class="location-btn map-btn" onclick="toggleMap()">🗺️ Pick Location on Map</button>
+    </div>
+
+    <div id="fakeMap" class="map">
+      <div class="map-pin"><span>📍</span></div>
+    </div>
+
+    <div class="coordinates">
+      <div class="coordinate-box">
+        <small>Latitude</small>
+        <strong id="latitude">Not set</strong>
+      </div>
+      <div class="coordinate-box">
+        <small>Longitude</small>
+        <strong id="longitude">Not set</strong>
+      </div>
+    </div>
+
+    <button class="save-location" onclick="saveBusinessLocation()">💾 Save Restaurant Location</button>
+  </div>
+
+  <div class="location-card">
+    <h2>Restaurant Performance 📊</h2>
+    <p style="color:#6B7280;font-size:12px;margin-top:5px;">Your restaurant activity this week.</p>
+    <div style="height:170px; display:flex; align-items:end; gap:10px; margin-top:25px;">
+      <div style="height:35%;flex:1;background:#FFB703;border-radius:8px;"></div>
+      <div style="height:48%;flex:1;background:#FFB703;border-radius:8px;"></div>
+      <div style="height:55%;flex:1;background:#FFB703;border-radius:8px;"></div>
+      <div style="height:65%;flex:1;background:#FF6B35;border-radius:8px;"></div>
+      <div style="height:72%;flex:1;background:#FF6B35;border-radius:8px;"></div>
+      <div style="height:85%;flex:1;background:#FF6B35;border-radius:8px;"></div>
+      <div style="height:95%;flex:1;background:#FF6B35;border-radius:8px;"></div>
+    </div>
+  </div>
 </main>
 
+<main id="adminPage" class="page">
+  <div class="page-header">
+    <div>
+      <h1>Admin Dashboard</h1>
+      <p>Monitor your restaurant platform.</p>
+    </div>
+    <button class="back" onclick="openPage('homePage')">← Home</button>
+  </div>
 
-
-<!-- =====================================================
-     BOTTOM NAV
-===================================================== -->
+  <div class="stats">
+    <div class="stat">👥<small>Total Customers</small><strong>24.8K</strong></div>
+    <div class="stat">🏪<small>Total Restaurants</small><strong>684</strong></div>
+    <div class="stat">🍽️<small>Food Items</small><strong>8,942</strong></div>
+    <div class="stat">👁️<small>Total Views</small><strong>1.2M</strong></div>
+  </div>
+</main>
 
 <nav class="bottom-nav">
-
-  <button
-    class="active"
-    onclick="openPage('homePage',this)">
-
-    <b>⌂</b>
-    Home
-
-  </button>
-
-
-  <button
-    onclick="openPage('customerPage',this)">
-
-    <b>⌕</b>
-    Explore
-
-  </button>
-
-
-  <button
-    onclick="openPage('customerPage',this)">
-
-    <b>⌖</b>
-    Nearby
-
-  </button>
-
-
-  <button
-    onclick="toast('Saved restaurants ❤️')">
-
-    <b>♡</b>
-    Saved
-
-  </button>
-
-
-  <button
-    onclick="toast('Profile 👤')">
-
-    <b>♙</b>
-    Profile
-
-  </button>
-
+  <button class="active" onclick="openPage('homePage',this)"><b>⌂</b>Home</button>
+  <button onclick="openPage('customerPage',this)"><b>⌕</b>Explore</button>
+  <button onclick="openPage('customerPage',this)"><b>⌖</b>Nearby</button>
+  <button onclick="toast('Saved restaurants ❤️')"><b>♡</b>Saved</button>
+  <button onclick="toast('Profile 👤')"><b>♙</b>Profile</button>
 </nav>
 
+<button class="ai-button" onclick="toggleAI()">🤖</button>
 
-
-<!-- =====================================================
-     AI BUTTON
-===================================================== -->
-
-<button
-  class="ai-button"
-  onclick="toggleAI()">
-
-  🤖
-
-</button>
-
-
-
-<!-- =====================================================
-     AI ASSISTANT
-===================================================== -->
-
-<div
-  id="aiPanel"
-  class="ai-panel">
-
+<div id="aiPanel" class="ai-panel">
   <div class="ai-header">
-
     <div>
-
-      <h3>
-        🤖 Samir AI Assistant
-      </h3>
-
-      <small>
-        Food & Restaurant Assistant
-      </small>
-
+      <h3>🤖 Samir AI Assistant</h3>
+      <small>Food & Restaurant Assistant</small>
     </div>
-
-    <button
-      class="ai-close"
-      onclick="toggleAI()">
-
-      ×
-
-    </button>
-
+    <button class="ai-close" onclick="toggleAI()">×</button>
   </div>
 
-
-  <div
-    id="aiMessages"
-    class="ai-messages">
-
-    <div class="ai-message bot">
-
-      👋 Habari! Mimi ni Samir AI Assistant.
-      Naweza kukusaidia kutafuta restaurants,
-      chakula au kukuelekeza jinsi ya kutumia app.
-
-    </div>
-
+  <div id="aiMessages" class="ai-messages">
+    <div class="ai-message bot">👋 Habari! Mimi ni Samir AI Assistant. Naweza kukusaidia kutafuta restaurants, chakula au kukuelekeza jinsi ya kutumia app.</div>
   </div>
-
 
   <div class="ai-input">
-
-    <input
-      id="aiInput"
-      placeholder="Uliza kitu kuhusu restaurants..."
-      onkeydown="aiEnter(event)">
-
-    <button onclick="sendAI()">
-      ➤
-    </button>
-
+    <input id="aiInput" placeholder="Uliza kitu kuhusu restaurants..." onkeydown="aiEnter(event)">
+    <button onclick="sendAI()">➤</button>
   </div>
-
 </div>
 
-
-
-<!-- =====================================================
-     RESTAURANT MODAL
-===================================================== -->
-
-<div
-  id="restaurantModal"
-  class="modal">
-
+<div id="restaurantModal" class="modal">
   <div class="modal-box">
-
-    <button
-      class="close"
-      onclick="closeRestaurant()">
-
-      ×
-
-    </button>
-
-    <h2 id="modalTitle">
-      Restaurant
-    </h2>
-
-    <p>
-      Explore menu, location and available food.
-    </p>
-
-    <button
-      class="primary-btn"
-      onclick="openPage('customerPage');closeRestaurant()">
-
-      🍽️ View Restaurant Menu
-
-    </button>
-
+    <button class="close" onclick="closeRestaurant()">×</button>
+    <h2 id="modalTitle">Restaurant</h2>
+    <p>Explore menu, location and available food.</p>
+    <button class="primary-btn" onclick="openPage('customerPage');closeRestaurant()">🍽️ View Restaurant Menu</button>
   </div>
-
 </div>
 
-
-
-<!-- =====================================================
-     TOAST
-===================================================== -->
-
-<div
-  id="toastBox"
-  class="toast">
-</div>
-
-
+<div id="toastBox" class="toast"></div>
 
 <script>
-
-/* =====================================================
-   GLOBAL DATA
-===================================================== */
-
-let currentBusiness = {
-  restaurantName:"",
-  ownerName:"",
-  email:""
-};
-
-let businessLocation = {
-  latitude:null,
-  longitude:null,
-  address:""
-};
-
+let currentBusiness = {restaurantName:"", ownerName:"", email:""};
+let businessLocation = {latitude:null, longitude:null, address:""};
 let toastTimer;
 
-
-/* =====================================================
-   PAGE NAVIGATION
-===================================================== */
-
 function openPage(pageId,button){
+  document.querySelectorAll(".page").forEach(function(page){page.classList.remove("active")});
+  const page = document.getElementById(pageId);
+  if(page) page.classList.add("active");
 
-  document
-    .querySelectorAll(".page")
-    .forEach(function(page){
-
-      page.classList.remove("active");
-
-    });
-
-
-  const page =
-    document.getElementById(pageId);
-
-  if(page){
-
-    page.classList.add("active");
-
-  }
-
-
-  document
-    .querySelectorAll(".bottom-nav button")
-    .forEach(function(btn){
-
-      btn.classList.remove("active");
-
-    });
-
-
-  if(button){
-
-    button.classList.add("active");
-
-  }
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
+  document.querySelectorAll(".bottom-nav button").forEach(function(btn){btn.classList.remove("active")});
+  if(button) button.classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
 }
-
-
-/* =====================================================
-   HOME SEARCH
-===================================================== */
 
 function homeSearch(){
-
-  const value =
-    document
-    .getElementById("homeSearch")
-    .value
-    .trim();
-
+  const value = document.getElementById("homeSearch").value.trim();
   openPage("customerPage");
-
   if(value){
-
-    document
-      .getElementById("customerSearch")
-      .value=value;
-
+    document.getElementById("customerSearch").value = value;
     filterRestaurants();
-
   }
-
 }
-
-
-/* =====================================================
-   CUSTOMER SEARCH
-===================================================== */
 
 function filterRestaurants(){
-
-  const value =
-    document
-    .getElementById("customerSearch")
-    .value
-    .toLowerCase()
-    .trim();
-
-
-  document
-    .querySelectorAll("#restaurantList .list-item")
-    .forEach(function(item){
-
-      const name =
-        item
-        .querySelector("h3")
-        .textContent
-        .toLowerCase();
-
-
-      item.style.display =
-        name.includes(value)
-        ? "flex"
-        : "none";
-
-    });
-
+  const value = document.getElementById("customerSearch").value.toLowerCase().trim();
+  document.querySelectorAll("#restaurantList .list-item").forEach(function(item){
+    const name = item.querySelector("h3").textContent.toLowerCase();
+    item.style.display = name.includes(value) ? "flex" : "none";
+  });
 }
-
-
-/* =====================================================
-   BUSINESS REGISTER
-===================================================== */
 
 function registerBusiness(){
-
-  const restaurant =
-    document
-    .getElementById("registerRestaurantName")
-    .value
-    .trim();
-
-  const owner =
-    document
-    .getElementById("registerOwnerName")
-    .value
-    .trim();
-
-  const email =
-    document
-    .getElementById("registerEmail")
-    .value
-    .trim();
-
-  const password =
-    document
-    .getElementById("registerPassword")
-    .value;
-
+  const restaurant = document.getElementById("registerRestaurantName").value.trim();
+  const owner = document.getElementById("registerOwnerName").value.trim();
+  const email = document.getElementById("registerEmail").value.trim();
+  const password = document.getElementById("registerPassword").value;
 
   if(!restaurant || !owner || !email || !password){
-
     toast("Tafadhali jaza sehemu zote.");
-
     return;
-
   }
 
+  currentBusiness.restaurantName = restaurant;
+  currentBusiness.ownerName = owner;
+  currentBusiness.email = email;
 
-  currentBusiness.restaurantName=restaurant;
-  currentBusiness.ownerName=owner;
-  currentBusiness.email=email;
-
-
-  document
-    .getElementById("locationRestaurantName")
-    .value=restaurant;
-
-
+  document.getElementById("locationRestaurantName").value = restaurant;
   toast("Business account imeundwa ✓");
-
-
-  setTimeout(function(){
-
-    openPage("businessPage");
-
-  },700);
-
+  setTimeout(function(){openPage("businessPage")},700);
 }
-
-
-/* =====================================================
-   BUSINESS LOGIN
-===================================================== */
 
 function businessLogin(){
-
-  const email =
-    document
-    .getElementById("businessEmail")
-    .value
-    .trim();
-
-  const password =
-    document
-    .getElementById("businessPassword")
-    .value;
-
+  const email = document.getElementById("businessEmail").value.trim();
+  const password = document.getElementById("businessPassword").value;
 
   if(!email || !password){
-
     toast("Ingiza email na password.");
-
     return;
-
   }
 
+  currentBusiness.email = email;
+  if(!currentBusiness.restaurantName) currentBusiness.restaurantName = "My Restaurant";
 
-  currentBusiness.email=email;
-
-
-  if(!currentBusiness.restaurantName){
-
-    currentBusiness.restaurantName=
-      "My Restaurant";
-
-  }
-
-
-  document
-    .getElementById("locationRestaurantName")
-    .value=
-    currentBusiness.restaurantName;
-
-
-  document
-    .getElementById("businessWelcome")
-    .textContent=
-    "Manage " +
-    currentBusiness.restaurantName;
-
-
+  document.getElementById("locationRestaurantName").value = currentBusiness.restaurantName;
+  document.getElementById("businessWelcome").textContent = "Manage " + currentBusiness.restaurantName;
   toast("Login successful ✓");
-
-
-  setTimeout(function(){
-
-    openPage("businessPage");
-
-  },600);
-
+  setTimeout(function(){openPage("businessPage")},600);
 }
-
-
-/* =====================================================
-   BUSINESS LOGOUT
-===================================================== */
 
 function businessLogout(){
-
   toast("Umetoka kwenye Business Account.");
-
-  setTimeout(function(){
-
-    openPage("homePage");
-
-  },600);
-
+  setTimeout(function(){openPage("homePage")},600);
 }
-
-
-/* =====================================================
-   LOCATION SETUP
-===================================================== */
 
 function openLocationSetup(){
-
-  document
-    .getElementById("locationSetup")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
-
+  document.getElementById("locationSetup").scrollIntoView({behavior:"smooth"});
 }
-
-
-/* =====================================================
-   USE CURRENT LOCATION
-===================================================== */
 
 function useCurrentLocation(){
-
-  const status =
-    document.getElementById(
-      "locationStatus"
-    );
-
-  const message =
-    document.getElementById(
-      "locationMessage"
-    );
-
+  const status = document.getElementById("locationStatus");
+  const message = document.getElementById("locationMessage");
 
   if(!navigator.geolocation){
-
-    toast(
-      "Browser yako hai-support location."
-    );
-
+    toast("Browser yako hai-support location.");
     return;
-
   }
 
-
-  status.textContent=
-    "📍 Getting your location...";
-
-  message.textContent=
-    "Please allow location permission.";
-
+  status.textContent = "📍 Getting your location...";
+  message.textContent = "Please allow location permission.";
 
   navigator.geolocation.getCurrentPosition(
-
     function(position){
-
-      const lat =
-        position.coords.latitude;
-
-      const lng =
-        position.coords.longitude;
-
-
-      businessLocation.latitude=lat;
-      businessLocation.longitude=lng;
-
-
-      document
-        .getElementById("latitude")
-        .textContent=
-        lat.toFixed(6);
-
-
-      document
-        .getElementById("longitude")
-        .textContent=
-        lng.toFixed(6);
-
-
-      status.textContent=
-        "🟢 Location detected";
-
-
-      message.textContent=
-        "Your current location has been detected successfully.";
-
-
-      toast(
-        "Location imepatikana 📍"
-      );
-
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      businessLocation.latitude = lat;
+      businessLocation.longitude = lng;
+      document.getElementById("latitude").textContent = lat.toFixed(6);
+      document.getElementById("longitude").textContent = lng.toFixed(6);
+      status.textContent = "🟢 Location detected";
+      message.textContent = "Your current location has been detected successfully.";
+      toast("Location imepatikana 📍");
     },
-
-
     function(error){
-
-      status.textContent=
-        "🔴 Location permission failed";
-
-      message.textContent=
-        "Please allow location permission in your browser.";
-
-      toast(
-        "Location haikupatikana."
-      );
-
+      status.textContent = "🔴 Location permission failed";
+      message.textContent = "Please allow location permission in your browser.";
+      toast("Location haikupatikana.");
     },
-
-    {
-      enableHighAccuracy:true,
-      timeout:10000,
-      maximumAge:0
-    }
-
+    {enableHighAccuracy:true, timeout:10000, maximumAge:0}
   );
-
 }
-
-
-/* =====================================================
-   MAP
-===================================================== */
 
 function toggleMap(){
-
-  const map =
-    document.getElementById("fakeMap");
-
+  const map = document.getElementById("fakeMap");
   map.classList.toggle("show");
-
-
-  if(map.classList.contains("show")){
-
-    toast(
-      "Move pin conceptually to your restaurant location 🗺️"
-    );
-
-  }
-
+  if(map.classList.contains("show")) toast("Move pin conceptually to your restaurant location 🗺️");
 }
-
-
-/* =====================================================
-   SAVE BUSINESS LOCATION
-===================================================== */
 
 function saveBusinessLocation(){
-
-  const restaurant =
-    document
-    .getElementById(
-      "locationRestaurantName"
-    )
-    .value
-    .trim();
-
-
-  const address =
-    document
-    .getElementById(
-      "businessAddress"
-    )
-    .value
-    .trim();
-
-
-  const lat =
-    businessLocation.latitude;
-
-  const lng =
-    businessLocation.longitude;
-
+  const restaurant = document.getElementById("locationRestaurantName").value.trim();
+  const address = document.getElementById("businessAddress").value.trim();
+  const lat = businessLocation.latitude;
+  const lng = businessLocation.longitude;
 
   if(!restaurant){
-
-    toast(
-      "Ingiza jina la restaurant."
-    );
-
+    toast("Ingiza jina la restaurant.");
     return;
-
   }
-
-
   if(!lat || !lng){
-
-    toast(
-      "Kwanza weka location ya biashara."
-    );
-
+    toast("Kwanza weka location ya biashara.");
     return;
-
   }
 
-
-  businessLocation.address=address;
-
-
-  localStorage.setItem(
-    "businessLocation",
-    JSON.stringify({
-      restaurant,
-      address,
-      latitude:lat,
-      longitude:lng
-    })
-  );
-
-
-  document
-    .getElementById("locationStatus")
-    .textContent=
-    "🟢 Location Saved Successfully";
-
-
-  document
-    .getElementById("locationMessage")
-    .textContent=
-    restaurant +
-    " location imehifadhiwa.";
-
-
-  toast(
-    "Restaurant location saved ✓"
-  );
-
+  businessLocation.address = address;
+  localStorage.setItem("businessLocation", JSON.stringify({restaurant,address,latitude:lat,longitude:lng}));
+  document.getElementById("locationStatus").textContent = "🟢 Location Saved Successfully";
+  document.getElementById("locationMessage").textContent = restaurant + " location imehifadhiwa.";
+  toast("Restaurant location saved ✓");
 }
-
-
-/* =====================================================
-   LOAD LOCATION
-===================================================== */
 
 function loadSavedLocation(){
+  const saved = localStorage.getItem("businessLocation");
+  if(!saved) return;
 
-  const saved =
-    localStorage.getItem(
-      "businessLocation"
-    );
+  const data = JSON.parse(saved);
+  businessLocation.latitude = data.latitude;
+  businessLocation.longitude = data.longitude;
+  businessLocation.address = data.address;
 
-
-  if(!saved){
-
-    return;
-
-  }
-
-
-  const data =
-    JSON.parse(saved);
-
-
-  businessLocation.latitude=
-    data.latitude;
-
-  businessLocation.longitude=
-    data.longitude;
-
-  businessLocation.address=
-    data.address;
-
-
-  document
-    .getElementById(
-      "locationRestaurantName"
-    )
-    .value=
-    data.restaurant;
-
-
-  document
-    .getElementById(
-      "businessAddress"
-    )
-    .value=
-    data.address;
-
-
-  document
-    .getElementById(
-      "latitude"
-    )
-    .textContent=
-    Number(data.latitude).toFixed(6);
-
-
-  document
-    .getElementById(
-      "longitude"
-    )
-    .textContent=
-    Number(data.longitude).toFixed(6);
-
-
-  document
-    .getElementById(
-      "locationStatus"
-    )
-    .textContent=
-    "🟢 Location Saved";
-
-
-  document
-    .getElementById(
-      "locationMessage"
-    )
-    .textContent=
-    "Your restaurant location is saved on this device.";
-
+  document.getElementById("locationRestaurantName").value = data.restaurant;
+  document.getElementById("businessAddress").value = data.address;
+  document.getElementById("latitude").textContent = Number(data.latitude).toFixed(6);
+  document.getElementById("longitude").textContent = Number(data.longitude).toFixed(6);
+  document.getElementById("locationStatus").textContent = "🟢 Location Saved";
+  document.getElementById("locationMessage").textContent = "Your restaurant location is saved on this device.";
 }
 
-
-/* =====================================================
-   RESTAURANT
-===================================================== */
-
-let selectedRestaurant="";
-
-
+let selectedRestaurant = "";
 function showRestaurant(name){
-
-  selectedRestaurant=name;
-
-  document
-    .getElementById("modalTitle")
-    .textContent=name;
-
-  document
-    .getElementById("restaurantModal")
-    .classList.add("show");
-
+  selectedRestaurant = name;
+  document.getElementById("modalTitle").textContent = name;
+  document.getElementById("restaurantModal").classList.add("show");
 }
-
-
 function closeRestaurant(){
-
-  document
-    .getElementById("restaurantModal")
-    .classList.remove("show");
-
+  document.getElementById("restaurantModal").classList.remove("show");
 }
-
-
-/* =====================================================
-   SAVE RESTAURANT
-===================================================== */
 
 function saveRestaurant(name){
-
-  toast(
-    name +
-    " imehifadhiwa ❤️"
-  );
-
+  toast(name + " imehifadhiwa ❤️");
 }
-
-
-/* =====================================================
-   AI ASSISTANT
-===================================================== */
 
 function toggleAI(){
-
-  document
-    .getElementById("aiPanel")
-    .classList.toggle("show");
-
+  document.getElementById("aiPanel").classList.toggle("show");
 }
-
 
 function aiEnter(event){
-
-  if(event.key==="Enter"){
-
-    sendAI();
-
-  }
-
+  if(event.key === "Enter") sendAI();
 }
-
 
 function sendAI(){
+  const input = document.getElementById("aiInput");
+  const message = input.value.trim();
+  if(!message) return;
 
-  const input =
-    document.getElementById(
-      "aiInput"
-    );
-
-  const message =
-    input.value.trim();
-
-
-  if(!message){
-
-    return;
-
-  }
-
-
-  addAIMessage(
-    message,
-    "user"
-  );
-
-
-  input.value="";
-
+  addAIMessage(message, "user");
+  input.value = "";
 
   setTimeout(function(){
-
-    const reply =
-      generateAIReply(message);
-
-    addAIMessage(
-      reply,
-      "bot"
-    );
-
+    const reply = generateAIReply(message);
+    addAIMessage(reply, "bot");
   },500);
-
 }
 
-
-function addAIMessage(
-  message,
-  type
-){
-
-  const box =
-    document.getElementById(
-      "aiMessages"
-    );
-
-
-  const item =
-    document.createElement("div");
-
-
-  item.className=
-    "ai-message " +
-    type;
-
-
-  item.textContent=message;
-
-
+function addAIMessage(message, type){
+  const box = document.getElementById("aiMessages");
+  const item = document.createElement("div");
+  item.className = "ai-message " + type;
+  item.textContent = message;
   box.appendChild(item);
-
-
-  box.scrollTop=
-    box.scrollHeight;
-
+  box.scrollTop = box.scrollHeight;
 }
-
-
-/*
-  Hii ni AI demo ya ndani ya browser.
-  Kwa AI halisi tutaunganisha API/backend.
-*/
 
 function generateAIReply(question){
+  const q = question.toLowerCase();
 
-  const q=
-    question.toLowerCase();
-
-
-  if(
-    q.includes("restaurant") ||
-    q.includes("mgahawa")
-  ){
-
+  if(q.includes("restaurant") || q.includes("mgahawa")){
     return "Naweza kukusaidia kutafuta restaurants zilizo karibu, kuona ratings, menu na location zao. Fungua Explore ili kuanza.";
-
   }
-
-
-  if(
-    q.includes("location") ||
-    q.includes("mahali")
-  ){
-
+  if(q.includes("location") || q.includes("mahali")){
     return "Kwa business, nenda Business → Set Location → Use My Current Location. Browser itaomba ruhusa ya location.";
-
   }
-
-
-  if(
-    q.includes("burger")
-  ){
-
+  if(q.includes("burger")){
     return "Kuna Beef Burger kwenye Popular Food Today kwa TZS 12,000 🍔.";
-
   }
-
-
-  if(
-    q.includes("chips")
-  ){
-
+  if(q.includes("chips")){
     return "Chicken & Chips ipo kwenye menu kwa TZS 8,000 🍗.";
-
   }
-
-
-  if(
-    q.includes("business") ||
-    q.includes("biashara")
-  ){
-
+  if(q.includes("business") || q.includes("biashara")){
     return "Kama wewe ni mfanyabiashara, fungua Business → Create Business Account → Login → Set Location.";
-
   }
-
-
   return "Nimekupata 😊. Kwa sasa naweza kukusaidia kuhusu restaurants, food, business account na restaurant location.";
-
 }
-
-
-/* =====================================================
-   TOAST
-===================================================== */
 
 function toast(message){
-
-  const box =
-    document.getElementById(
-      "toastBox"
-    );
-
-
-  box.textContent=message;
-
+  const box = document.getElementById("toastBox");
+  box.textContent = message;
   box.classList.add("show");
-
-
   clearTimeout(toastTimer);
-
-
-  toastTimer =
-    setTimeout(function(){
-
-      box.classList.remove("show");
-
-    },2500);
-
+  toastTimer = setTimeout(function(){box.classList.remove("show")},2500);
 }
 
+document.addEventListener("click", function(event){
+  const modal = document.getElementById("restaurantModal");
+  if(event.target === modal) closeRestaurant();
+});
 
-/* =====================================================
-   MODAL CLOSE
-===================================================== */
-
-document.addEventListener(
-  "click",
-  function(event){
-
-    const modal =
-      document.getElementById(
-        "restaurantModal"
-      );
-
-
-    if(event.target===modal){
-
-      closeRestaurant();
-
-    }
-
-  }
-);
-
-
-/* =====================================================
-   START APP
-===================================================== */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function(){
-
-    loadSavedLocation();
-
-  }
-);
-
+document.addEventListener("DOMContentLoaded", function(){
+  loadSavedLocation();
+});
 </script>
 
 </body>
